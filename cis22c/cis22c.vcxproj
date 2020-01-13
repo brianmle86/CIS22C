@@ -23,6 +23,7 @@
     <ProjectGuid>{0603542F-587C-443D-BC8F-58DD9DFB73DC}</ProjectGuid>
     <RootNamespace>cis22c</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Lab_1</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -138,6 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="currency.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="wallet.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="currency.h" />
+    <ClInclude Include="wallet.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
