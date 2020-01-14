@@ -8,8 +8,8 @@ using namespace std;
 class Wallet {
 
 private:
-	const int MAX_CURRENCIES;
-	Currency currencies[MAX_CURRENCIES];
+	Currency** currencies; //pointer magic
+	int MAX_CURRENCIES = 5;
 	int currenciesSize; //how many currencies there are currently in the array
 public:
 	Wallet();
@@ -31,4 +31,4 @@ public:
 	//check if wallet is empty
 	bool isWalletEmpty();
 };
-#endif 
+#endif
