@@ -3,164 +3,97 @@
 #include "wallet.h"
 #include <string>
 #include <sstream> 
+/**
+TODO:
+-doesCurrencyExist function does not seem to work
+-negative balance case, aka withdraw more than you have
 
+*/
 using namespace std;
-
-
-//Changes the user's input to all uppercase to allow more values to be entered while still being correct. 
-string upperCase(string input) {
-	for (string::size_type i = 0; i < input.length(); i++) {
-
-		input = toupper(input[i]);
-		return input;
-
-	}
-	
-}
-
-//Checks if user's input is yes or no
-bool yesNo(string input) {
-
-	if (upperCase(input) == "Y" || upperCase(input) == "YES") {
-		return true;
-	}
-	else if (upperCase(input) == "N" || upperCase(input) == "NO") {
-		return false;
-	}
-		
-}
-
-
-//Let's the user enter different inputs and converts them to wallet1.add compatable.
-string typeOfMoney(string input) {
-
-	if (upperCase(input) == "D" || upperCase(input) == "DOLLARS" || upperCase(input) == "DOLLAR") {
-		return "Dollar";
-	}
-	else if (upperCase(input) == "E" || upperCase(input) == "EURO" || upperCase(input) == "EUROS") {
-		return "Euro";
-	}
-	else if (upperCase(input) == "R" || upperCase(input) == "RUPEE" || upperCase(input) == "RUPEES") {
-		return "Rupee";
-	}
-	else if (upperCase(input) == "Y" || upperCase(input) == "YEN" || upperCase(input) == "YENS") {
-		return "Yen";
-	}
-	else if (upperCase(input) == "YUAN" || upperCase(input) == "YUANS") {
-		return "Yuan";
-	}
-}
-
-
-
-
-
-
-
 int main() {
-
-	string currentType, userInput;
-	
 	Wallet wallet1;
 	bool endProgram = false;
-
-	cout << "\t\tWALLET 1.01\t\t\n";
-
+	bool valid = 1;
+	char userInput;
+	string currencyType;
+	int wholeAmount, fractionAmount;
+	cout << "WALLET 1.01\nLuke Marshall,Brian Le\n\n";
 
 	//Main Loop to keep the program running. 
 	while (endProgram == false) {
-		cout << "Would you like to open your wallet? Enter Yes or No. ";
+		cout << "Wallet opened. Please select an option.\n";
+
+		cout << "a. Add money\n"
+			<< "w. Withdraw money\n"
+			<< "v. View balance\n"
+			<< "e. Empty contents\n"
+			<< "c. close wallet\n";
+
 		cin >> userInput;
-
-		//Checks the user's input.
-		if (yesNo(userInput) == true) {
-			cout << "Enter 'A' to add money to wallet. \n'W' to remove money from wallet. \n'V' to view your current wallet's balance. \n'E' to empty your wallet completely. ";
+		while (userInput != 'a' && userInput != 'w' && userInput != 'v' && userInput != 'e' && userInput != 'c') {
+			cout << "Enter a, w, v, e, or c only!\n";
 			cin >> userInput;
-			if (upperCase(userInput) == "A") {
-				cout << "What kind of money would you like to add? Dollars, Pounds, Yen, Rupee, or Yuan? ";
-				cin >> userInput;
-				currentType = typeOfMoney(userInput);
-
-				cout << "How much would you like to add? ";
-				
-				cin >> userInput;
-
-				//Converts user's input to double
-				stringstream s(userInput);
-				double amount = 0;
-				s >> amount;
-				
-
-				//Splits the double into two integers. 
-				long intPart = (long)amount;
-				double fractionalPart = amount - intPart;
-
-				wallet1.add(currentType, intPart, fractionalPart);
-				
-
-				
-
-				//wallet1.add("Dollar", wholeAmount, fractionAmount);
-				
-			}
-			else if (upperCase(userInput) == "W") {
-				cout << "What kind of money would you like to withdraw? Dollars, Pounds, Yen, Rupee, or Yuan?";
-				cin >> userInput;
-				currentType = typeOfMoney(userInput);
-
-				cout << "How much would you like to withdraw? ";
-
-				cin >> userInput;
-
-				//Converts user's input to double
-				stringstream s(userInput);
-				double amount = 0;
-				s >> amount;
-
-
-				//Splits the double into two integers. 
-				long intPart = (long)amount;
-				double fractionalPart = amount - intPart;
-
-				wallet1.remove(currentType, intPart, fractionalPart);
-			}
-			else if (upperCase(userInput) == "V") {
-				if (wallet1.doesCurrencyExist("Dollars") == true) {
-					cout << "You have dollars: ";
+		}
+		if (userInput == 'a') {
+			cout << "Please enter in the form [currencyType] [wholeAmount] [fractionAmount] ";
+			cin >> currencyType >> wholeAmount >> fractionAmount;
+			while (valid == 1) {
+				if (cin.fail()) {
+					cin.clear();
+					cin.ignore();
+					cout << "Wrong! Follow the correct format!" << endl;
+					cin >> currencyType >> wholeAmount >> fractionAmount;
 				}
+				else
+					valid = 0;
 			}
-			else if (upperCase(userInput) == "E") {
-				cout << "Removing everything from wallet... ";
-				wallet1.resetCurrency();
+			if (wallet1.doesCurrencyExist(currencyType)) {
+				wallet1.add(currencyType, wholeAmount, fractionAmount);
 			}
-			
-		}
-
-
-
-		//If user enters no ask if they would like to end the program.
-		else if (yesNo(userInput) == false) {
-			cout << "Ok, would you like to end the program? ";
-			cin >> userInput;
-			//Checks the user's input to see if they want to quit. 
-			if (yesNo(userInput) == true) {
-				return 0;
-
+			else {
+				wallet1.addCurrency(currencyType, wholeAmount, fractionAmount);
 			}
-			else if (yesNo(userInput) == false) {
-				cout << "That is all this program can do. \n";
-			}
+			cout << "Success! " << wholeAmount << "."<< fractionAmount << " " << currencyType << "(s) added!\n";
 
 		}
+		else if (userInput == 'w') {
+			if (wallet1.isWalletEmpty()) {
+				cout << "Nothing to withdraw!\n";
+			}
+			else {
+				cout << "Please enter in the form [currencyType] [wholeAmount] [fractionAmount] ";
+				cin >> currencyType >> wholeAmount >> fractionAmount;
+				while (valid == 1) {
+					if (cin.fail()) {
+						cin.clear();
+						cin.ignore();
+						cout << "Wrong! Follow the correct format!" << endl;
+						cin >> currencyType >> wholeAmount >> fractionAmount;
+					}
+					else
+						valid = 0;
+				}
+				wallet1.remove(currencyType, wholeAmount, fractionAmount);
+			}
 
+		}
+		else if (userInput == 'v') {
+			cout << "There are " << wallet1.arraySize() << " currencies in the wallet. " << endl;
+			if (wallet1.arraySize() != 0) {
+				wallet1.listWallet();
+			}
+		}
+		else if (userInput == 'e') {
+			cout << "Removing everything from wallet... ";
+			wallet1.resetCurrency();
+		}
+		else if (userInput == 'c') {
+			endProgram = true;
+		}
 
 	}
-	
-	
 
-	
 
-	
+	system("pause");
 	return 0;
-
 }

@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="currency.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="oldmain.txt" />
     <ClCompile Include="wallet.cpp" />
   </ItemGroup>
   <ItemGroup>

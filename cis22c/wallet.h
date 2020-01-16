@@ -7,7 +7,7 @@ using namespace std;
 
 class Wallet {
 
-private:
+protected:
 	Currency** currencies; //pointer magic
 	int MAX_CURRENCIES = 5;
 	int currenciesSize; //how many currencies there are currently in the array
@@ -20,8 +20,9 @@ public:
 	//check if a currency type exists with non-zero value in the wallet
 	bool doesCurrencyExist(std::string);
 	//add money by currency type
+	void addCurrency(std::string, int, int);
+	//add money to existing currency type
 	void add(std::string, int, int);
-
 	//remove money by currency type
 	void remove(std::string currencyType, int wholeAmount, int fractionAmount);
 
@@ -30,5 +31,8 @@ public:
 
 	//check if wallet is empty
 	bool isWalletEmpty();
+
+	//list items in wallet
+	void listWallet();
 };
 #endif

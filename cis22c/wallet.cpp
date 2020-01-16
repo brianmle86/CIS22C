@@ -3,7 +3,10 @@
 
 
 Wallet::Wallet() {
-    currencies = new Currency * [MAX_CURRENCIES];
+    currencies = new Currency *[MAX_CURRENCIES];
+    for (int i = 0; i < 5; i++) {
+        currencies[i] = nullptr;
+    }
     currenciesSize = 0;
 }
 
@@ -11,7 +14,7 @@ Wallet::Wallet() {
 int Wallet::arraySize() {
     int count = 0;
     for (int i = 0; i < MAX_CURRENCIES; i++) {
-        if (currencies[i]->getValue() > 0) {
+        if (currencies[i] != nullptr) {
             count++;
         }
     }
@@ -29,7 +32,7 @@ bool Wallet::doesCurrencyExist(std::string currencyType) {
 }
 
 //add money by currency type
-void Wallet::add(std::string currencyType, int wholeAmount, int fractionAmount) {
+void Wallet::addCurrency(std::string currencyType, int wholeAmount, int fractionAmount) {
     if (arraySize() < MAX_CURRENCIES) {   //while size of array does not exeed max 
         if (currencyType == "Dollar")
             currencies[arraySize()] = new Dollar(wholeAmount, fractionAmount); //this should create a new object in the array by calling constructor
@@ -42,8 +45,17 @@ void Wallet::add(std::string currencyType, int wholeAmount, int fractionAmount) 
         else if (currencyType == "Yuan")
             currencies[arraySize()] = new Yuan(wholeAmount, fractionAmount);
     }
+    currenciesSize++;
 }
-
+//add money to existing currency type
+void Wallet::add(std::string currencyType, int wholeAmount, int fractionAmount) {
+    for (int i = 0; i < arraySize(); i++) {
+        if (currencyType == currencies[i]->getNoteName()) {
+            currencies[i]->addWholeParts(wholeAmount);
+            currencies[i]->addFractionParts(fractionAmount);
+        }
+    }
+}
 //remove money by currency type
 //so this function is the OPPOSITE of the add function
 //adding negative value will subtract money
@@ -51,6 +63,7 @@ void Wallet::remove(std::string currencyType, int wholeAmount, int fractionAmoun
     wholeAmount *= -1;
     fractionAmount *= -1;
     add(currencyType, wholeAmount, fractionAmount);
+    currenciesSize--;
 }
 
 
@@ -62,8 +75,16 @@ void Wallet::resetCurrency() {
 
 //check if wallet is empty
 bool Wallet::isWalletEmpty() {
-    if (currenciesSize = 0)
+    if (currenciesSize == 0)
         return true;
     else
         return false;
+}
+
+//list items in wallet
+void Wallet::listWallet() {
+    for (int i = 0; i < arraySize(); i++) {
+        cout << currencies[i]->getNoteName() << ": " << currencies[i]->getValue() << endl;
+        //cout << *currencies[i] << endl;
+    }
 }

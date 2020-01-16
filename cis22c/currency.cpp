@@ -18,8 +18,8 @@ string Currency::getNoteName() {
 	return note;
 }
 
-double Currency::getValue() {
-	return wholeParts + (fractionParts * 100);
+double Currency::getValue() { //source of read access violation bug
+	return double(wholeParts + (fractionParts * 100));
 }
 
 int Currency::getWholeParts() {
