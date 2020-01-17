@@ -19,7 +19,7 @@ string Currency::getNoteName() {
 }
 
 double Currency::getValue() { //source of read access violation bug
-	return double(wholeParts + (fractionParts * 100));
+	return double(wholeParts + (fractionParts * 0.01));
 }
 
 int Currency::getWholeParts() {

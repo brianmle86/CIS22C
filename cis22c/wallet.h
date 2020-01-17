@@ -25,7 +25,8 @@ public:
 	void add(std::string, int, int);
 	//remove money by currency type
 	void remove(std::string currencyType, int wholeAmount, int fractionAmount);
-
+	//check if wallet has zero amount of currency type
+	bool checkIfZero(std::string);
 	//zero out all currency types
 	void resetCurrency();
 

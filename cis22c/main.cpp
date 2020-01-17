@@ -4,9 +4,6 @@
 #include <string>
 #include <sstream> 
 /**
-TODO:
--doesCurrencyExist function does not seem to work
--negative balance case, aka withdraw more than you have
 
 */
 using namespace std;
@@ -84,7 +81,7 @@ int main() {
 			}
 		}
 		else if (userInput == 'e') {
-			cout << "Removing everything from wallet... ";
+			cout << "Removing everything from wallet... \n";
 			wallet1.resetCurrency();
 		}
 		else if (userInput == 'c') {

@@ -21,7 +21,7 @@ int Wallet::arraySize() {
     return count;
 }
 
-//check if a currency type exists with non-zero value in the wallet
+//check if a currency type exists
 bool Wallet::doesCurrencyExist(std::string currencyType) {
     for (int i = 0; i < arraySize(); i++) {
         if (currencies[i]->getNoteName() == currencyType)
@@ -29,6 +29,7 @@ bool Wallet::doesCurrencyExist(std::string currencyType) {
         else
             return false;
     }
+    return false; //if arraySize() returns 0
 }
 
 //add money by currency type
@@ -57,20 +58,53 @@ void Wallet::add(std::string currencyType, int wholeAmount, int fractionAmount) 
     }
 }
 //remove money by currency type
-//so this function is the OPPOSITE of the add function
-//adding negative value will subtract money
 void Wallet::remove(std::string currencyType, int wholeAmount, int fractionAmount) {
-    wholeAmount *= -1;
-    fractionAmount *= -1;
-    add(currencyType, wholeAmount, fractionAmount);
-    currenciesSize--;
+    if (doesCurrencyExist(currencyType) == false) {
+        cout << "Cannot withdraw!\n";
+        return;
+    }
+    int index;
+    for (int i = 0; i < arraySize(); i++) {
+        if (currencies[i]->getNoteName() == currencyType)
+            index = i;
+    }
+    add(currencyType, (wholeAmount * -1), (fractionAmount * -1));
+    if ((currencies[index]->getWholeParts() + (currencies[index]->getFractionParts() * 0.01)) < 0) {
+        //currency has negative value, reverse remove and notify user
+        add(currencyType, wholeAmount, fractionAmount);
+        cout << "Cannot withdraw more than you have!\n";
+    }
+    if (checkIfZero(currencyType)) {
+        currencies[index] = nullptr;
+        currenciesSize--;
+    }
+
+    
+}
+//checks if given currency type has zero value in wallet
+bool Wallet::checkIfZero(std::string currencyType) {
+    if (currenciesSize == 0)
+        return false; //nothing in wallet
+    int index;
+    for (int i = 0; i < arraySize(); i++) {
+        if (currencies[i]->getNoteName() == currencyType)
+            index = i;
+    }
+    //first check if currency type actually exists in wallet
+    if (doesCurrencyExist(currencyType)) {
+        if ((currencies[index]->getWholeParts() + (currencies[index]->getFractionParts() * 0.01)) == 0) {
+            return true;
+        }
+        else
+            return false; //not zero
+    }
 }
 
 
 //zero out all currency types
 void Wallet::resetCurrency() {
     for (int i = 0; i < arraySize(); i++)
-        currencies[i] = 0;
+        currencies[i] = nullptr;
 }
 
 //check if wallet is empty
