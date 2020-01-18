@@ -51,7 +51,6 @@ void Currency::resetToBlankObj() {
 
 
 
-
 Dollar::Dollar(int wholeAmount, int fractionAmount) : Currency(wholeAmount, fractionAmount) {
 	note = "Dollar";
 	coin = "cent";
