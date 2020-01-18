@@ -81,7 +81,11 @@ int main() {
 					else
 						valid = 0;
 				}
-				wallet1.remove(currencyType, wholeAmount, fractionAmount);
+				if (wallet1.remove(currencyType, wholeAmount, fractionAmount)) {
+					cout << "Success! " << wholeAmount << "." << fractionAmount << " " << currencyType << "(s) withdrawn!\n";
+				}
+				else
+					cout << "Failure! " << wholeAmount << "." << fractionAmount << " " << currencyType << "(s) cannot be withdrawn!\n";
 			}
 
 		}

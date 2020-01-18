@@ -10,7 +10,7 @@ Wallet::Wallet() {
     currenciesSize = 0;
 }
 
-//number of individual currency types whose value is non-zero
+//returns number of currency types
 int Wallet::arraySize() {
     int count = 0;
     for (int i = 0; i < MAX_CURRENCIES; i++) {
@@ -32,7 +32,7 @@ bool Wallet::doesCurrencyExist(std::string currencyType) {
     return false; //if arraySize() returns 0
 }
 
-//add money by currency type
+//add money by currency type using dynamic memory allocation
 void Wallet::addCurrency(std::string currencyType, int wholeAmount, int fractionAmount) {
     if (arraySize() < MAX_CURRENCIES) {   //while size of array does not exeed max 
         if (currencyType == "Dollar")
@@ -58,10 +58,9 @@ void Wallet::add(std::string currencyType, int wholeAmount, int fractionAmount) 
     }
 }
 //remove money by currency type
-void Wallet::remove(std::string currencyType, int wholeAmount, int fractionAmount) {
+int Wallet::remove(std::string currencyType, int wholeAmount, int fractionAmount) {
     if (doesCurrencyExist(currencyType) == false) {
-        cout << "Cannot withdraw!\n";
-        return;
+        return 0;
     }
     int index;
     for (int i = 0; i < arraySize(); i++) {
@@ -70,14 +69,15 @@ void Wallet::remove(std::string currencyType, int wholeAmount, int fractionAmoun
     }
     add(currencyType, (wholeAmount * -1), (fractionAmount * -1));
     if ((currencies[index]->getWholeParts() + (currencies[index]->getFractionParts() * 0.01)) < 0) {
-        //currency has negative value, reverse remove and notify user
+        //currency has negative value, reverse remove
         add(currencyType, wholeAmount, fractionAmount);
-        cout << "Cannot withdraw more than you have!\n";
+        return 0;
     }
     if (checkIfZero(currencyType)) {
         currencies[index] = nullptr;
         currenciesSize--;
     }
+    return 1;
 
     
 }
@@ -101,7 +101,7 @@ bool Wallet::checkIfZero(std::string currencyType) {
 }
 
 
-//zero out all currency types
+//clear currency types in wallet
 void Wallet::resetCurrency() {
     for (int i = 0; i < arraySize(); i++)
         currencies[i] = nullptr;

@@ -49,11 +49,6 @@ void Currency::resetToBlankObj() {
 	coin = "";
 }
 
-ostream& operator<<(ostream& output, Currency& obj) {
-	output << obj.getNoteName() << ": " << obj.getWholeParts() << " "
-		<< obj.getCoinName() << ": " << obj.getFractionParts();
-	return output;
-}
 
 
 
