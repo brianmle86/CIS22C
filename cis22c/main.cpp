@@ -27,7 +27,7 @@ int main() {
 			<< "c. close wallet\n";
 
 		cin >> userInput;
-		while (userInput != 'a' && userInput != 'w' && userInput != 'v' && userInput != 'e' && userInput != 'c') {
+		while (userInput != 'a' && userInput != 'w' && userInput != 'v' && userInput != 'e' && userInput != 'c') { //Checks to make sure input is valid
 			cout << "Enter a, w, v, e, or c only!\n";
 			cin >> userInput;
 		}
@@ -92,7 +92,8 @@ int main() {
 		else if (userInput == 'v') {
 			cout << "There are " << wallet1.arraySize() << " currencies in the wallet. " << endl;
 			if (wallet1.arraySize() != 0) {
-				wallet1.listWallet();
+				cout << wallet1.listWallet();
+				
 			}
 		}
 		else if (userInput == 'e') {

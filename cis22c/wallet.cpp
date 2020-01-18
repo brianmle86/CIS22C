@@ -1,9 +1,11 @@
 #include <iostream>
 #include "wallet.h"
+#include <iomanip>
+#include <sstream>
 
 
 Wallet::Wallet() {
-    currencies = new Currency *[MAX_CURRENCIES];
+    currencies = new Currency * [MAX_CURRENCIES];
     for (int i = 0; i < 5; i++) {
         currencies[i] = nullptr;
     }
@@ -79,7 +81,7 @@ int Wallet::remove(std::string currencyType, int wholeAmount, int fractionAmount
     }
     return 1;
 
-    
+
 }
 //checks if given currency type has zero value in wallet
 bool Wallet::checkIfZero(std::string currencyType) {
@@ -116,9 +118,25 @@ bool Wallet::isWalletEmpty() {
 }
 
 //list items in wallet
-void Wallet::listWallet() {
+string Wallet::listWallet() {
+
+    string list;
+    
     for (int i = 0; i < arraySize(); i++) {
-        cout << currencies[i]->getNoteName() << ": " << currencies[i]->getValue() << endl;
-        //cout << *currencies[i] << endl;
+        ostringstream valueObj;
+        
+        string type = currencies[i]->getNoteName();
+        double dbleVal = currencies[i]->getValue();
+        valueObj << fixed;
+        valueObj << setprecision(2);
+        valueObj << dbleVal;
+        string value = valueObj.str();
+        list += (type + ": " + value + "\n");
+        
     }
+    return list;
+
+    
+
+   
 }

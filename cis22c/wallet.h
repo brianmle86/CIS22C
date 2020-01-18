@@ -11,6 +11,7 @@ protected:
 	Currency** currencies; //pointer magic
 	int MAX_CURRENCIES = 5;
 	int currenciesSize; //how many currencies there are currently in the array
+	
 public:
 	Wallet();
 
@@ -34,6 +35,6 @@ public:
 	bool isWalletEmpty();
 
 	//list items in wallet
-	void listWallet();
+	string listWallet();
 };
 #endif
