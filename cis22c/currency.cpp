@@ -17,8 +17,8 @@ Currency::Currency(int wholeAmount, int fractionAmount) {
 string Currency::getNoteName() {
 	return note;
 }
-
-double Currency::getValue() { //source of read access violation bug
+//gets value of a currency as a double i.e. x.xx
+double Currency::getValue() {
 	return double(wholeParts + (fractionParts * 0.01));
 }
 

@@ -34,6 +34,12 @@ int main() {
 		if (userInput == 'a') {
 			cout << "Please enter in the form [currencyType] [wholeAmount] [fractionAmount] ";
 			cin >> currencyType >> wholeAmount >> fractionAmount;
+			while (currencyType != "Dollar" && currencyType != "Euro" && currencyType != "Yen" && currencyType != "Yuan" && currencyType != "Rupee") {
+				cout << "Currency not valid. Please enter a valid currency.\nValid currencies: Dollar, Euro, Yen, Yuan, Rupee\n";
+				cout << "Please enter in the form [currencyType] [wholeAmount] [fractionAmount] ";
+				cin >> currencyType >> wholeAmount >> fractionAmount;
+			}
+
 			while (valid == 1) {
 				if (cin.fail()) {
 					cin.clear();
@@ -60,6 +66,11 @@ int main() {
 			else {
 				cout << "Please enter in the form [currencyType] [wholeAmount] [fractionAmount] ";
 				cin >> currencyType >> wholeAmount >> fractionAmount;
+				while (currencyType != "Dollar" && currencyType != "Euro" && currencyType != "Yen" && currencyType != "Yuan" && currencyType != "Rupee") {
+					cout << "Currency not valid. Please enter a valid currency.\nValid currencies: Dollar, Euro, Yen, Yuan, Rupee\n";
+					cout << "Please enter in the form [currencyType] [wholeAmount] [fractionAmount] ";
+					cin >> currencyType >> wholeAmount >> fractionAmount;
+				}
 				while (valid == 1) {
 					if (cin.fail()) {
 						cin.clear();
