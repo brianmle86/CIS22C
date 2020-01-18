@@ -105,7 +105,7 @@ bool Wallet::checkIfZero(std::string currencyType) {
 
 //clear currency types in wallet
 void Wallet::resetCurrency() {
-    for (int i = 0; i < arraySize(); i++)
+    for (int i = 0; i < MAX_CURRENCIES; i++)
         currencies[i] = nullptr;
 }
 
