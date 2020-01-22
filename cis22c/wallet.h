@@ -8,7 +8,7 @@ using namespace std;
 class Wallet {
 
 private:
-	Currency** currencies; //pointer magic
+	Currency* currencies; //pointer magic
 	int MAX_CURRENCIES = 5;
 	int currenciesSize; //how many currencies there are currently in the array
 public:

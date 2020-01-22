@@ -3,7 +3,7 @@
 
 
 Wallet::Wallet() {
-    currencies = new Currency * [MAX_CURRENCIES];
+    currencies = new Currency *[MAX_CURRENCIES];
     currenciesSize = 0;
 }
 
@@ -11,7 +11,7 @@ Wallet::Wallet() {
 int Wallet::arraySize() {
     int count = 0;
     for (int i = 0; i < MAX_CURRENCIES; i++) {
-        if (currencies[i]->getValue() > 0) {
+        if (currencies[i].getValue() > 0) {
             count++;
         }
     }
@@ -21,10 +21,9 @@ int Wallet::arraySize() {
 //check if a currency type exists with non-zero value in the wallet
 bool Wallet::doesCurrencyExist(std::string currencyType) {
     for (int i = 0; i < arraySize(); i++) {
-        if (currencies[i]->getNoteName() == currencyType)
+        if (currencies[i].getNoteName() == currencyType)
             return true;
-        else
-            return false;
+    return false; //does not exist
     }
 }
 
@@ -32,7 +31,7 @@ bool Wallet::doesCurrencyExist(std::string currencyType) {
 void Wallet::add(std::string currencyType, int wholeAmount, int fractionAmount) {
     if (arraySize() < MAX_CURRENCIES) {   //while size of array does not exeed max 
         if (currencyType == "Dollar")
-            currencies[arraySize()] = new Dollar(wholeAmount, fractionAmount); //this should create a new object in the array by calling constructor
+            currencies[arraySize()] = Dollar(wholeAmount, fractionAmount); //this should create a new object in the array by calling constructor
         else if (currencyType == "Euro")
             currencies[arraySize()] = new Euro(wholeAmount, fractionAmount);
         else if (currencyType == "Rupee")
@@ -62,7 +61,7 @@ void Wallet::resetCurrency() {
 
 //check if wallet is empty
 bool Wallet::isWalletEmpty() {
-    if (currenciesSize = 0)
+    if (currenciesSize == 0)
         return true;
     else
         return false;

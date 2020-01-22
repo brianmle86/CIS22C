@@ -19,7 +19,7 @@ string Currency::getNoteName() {
 }
 
 double Currency::getValue() {
-	return wholeParts + (fractionParts * 100);
+	return wholeParts + (double(fractionParts) * 100);
 }
 
 int Currency::getWholeParts() {
