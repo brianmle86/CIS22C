@@ -24,9 +24,7 @@ public:
 	void addFractionParts(int num);
 	void resetToBlankObj();
 
-	//Currency operator + (Currency const &obj);
-	friend ostream& operator<<(ostream& output, Currency& obj);
-	Currency operator = (Currency& obj);
+	
 };
 
 

@@ -17,9 +17,9 @@ Currency::Currency(int wholeAmount, int fractionAmount) {
 string Currency::getNoteName() {
 	return note;
 }
-
+//gets value of a currency as a double i.e. x.xx
 double Currency::getValue() {
-	return wholeParts + (double(fractionParts) * 100);
+	return double(wholeParts + (fractionParts * 0.01));
 }
 
 int Currency::getWholeParts() {
@@ -47,12 +47,6 @@ void Currency::resetToBlankObj() {
 	wholeParts = 0;
 	fractionParts = 0;
 	coin = "";
-}
-
-ostream& operator<<(ostream& output, Currency& obj) {
-	output << obj.getNoteName() << ": " << obj.getWholeParts() << " "
-		<< obj.getCoinName() << ": " << obj.getFractionParts();
-	return output;
 }
 
 

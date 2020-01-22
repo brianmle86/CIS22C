@@ -7,28 +7,34 @@ using namespace std;
 
 class Wallet {
 
-private:
-	Currency* currencies; //pointer magic
+protected:
+	Currency** currencies; //pointer magic
 	int MAX_CURRENCIES = 5;
 	int currenciesSize; //how many currencies there are currently in the array
+	
 public:
 	Wallet();
 
-	//number of individual currency types whose value is non-zero
+	//returns number of currency types
 	int arraySize();
 
-	//check if a currency type exists with non-zero value in the wallet
+	//check if a currency type exists
 	bool doesCurrencyExist(std::string);
-	//add money by currency type
+	//add money by currency type using dynamic memory allocation
+	void addCurrency(std::string, int, int);
+	//add money to existing currency type
 	void add(std::string, int, int);
-
 	//remove money by currency type
-	void remove(std::string currencyType, int wholeAmount, int fractionAmount);
-
-	//zero out all currency types
+	int remove(std::string currencyType, int wholeAmount, int fractionAmount);
+	//check if wallet has zero amount of currency type
+	bool checkIfZero(std::string);
+	//clear all currency types in wallet
 	void resetCurrency();
 
 	//check if wallet is empty
 	bool isWalletEmpty();
+
+	//list items in wallet
+	string listWallet();
 };
 #endif
