@@ -15,18 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="node.h">
+    <ClInclude Include="array.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="queue.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="linkedList.h">
+    <ClInclude Include="sort.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
