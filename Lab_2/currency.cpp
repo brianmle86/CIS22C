@@ -1,6 +1,6 @@
 #include <string>
 #include "currency.h"
-
+#include <iostream>
 Currency::Currency() {
 	note = "";
 	wholeParts = 0;
@@ -13,7 +13,9 @@ Currency::Currency(int wholeAmount, int fractionAmount) {
 	wholeParts = wholeAmount;
 	fractionParts = fractionAmount;
 }
-
+Currency::Currency(string x) {
+	note = x;
+}
 string Currency::getNoteName() {
 	return note;
 }
@@ -49,22 +51,29 @@ void Currency::resetToBlankObj() {
 	coin = "";
 }
 ostream& operator<<(ostream& output, Currency& obj) {
-	output << obj.getNoteName() << ": " << obj.getWholeParts() << " "
-		<< obj.getCoinName() << ": " << obj.getFractionParts();
+	output << ((double(obj.wholeParts) + (obj.fractionParts / 100.0)));
 	return output;
 }
 
 istream& operator>>(istream& input, Currency& obj) { //friend function can access currency members directly
-	input >> obj.note >> obj.wholeParts >> obj.fractionParts;
+	input >> obj.wholeParts >> obj.fractionParts;
 	return input;
+	
+}
+
+bool operator> (Currency& obj1, Currency& obj2) {
+	return ((double(obj1.wholeParts) + (obj1.fractionParts/100.0)) > (double(obj2.wholeParts) + (obj2.fractionParts / 100.0)));
+}
+
+bool operator< (Currency& obj1, Currency& obj2) {
+	return ((double(obj1.wholeParts) + (obj1.fractionParts / 100.0)) > (double(obj2.wholeParts) + (obj2.fractionParts / 100.0)));
 }
 
 
 
 
 
-
-Dollar::Dollar() : Currency() {};
+Dollar::Dollar() : Currency("Dollar") {};
 Dollar::Dollar(int wholeAmount, int fractionAmount) : Currency(wholeAmount, fractionAmount) {
 	note = "Dollar";
 	coin = "cent";

@@ -4,7 +4,7 @@
 #include <string>
 #include <iostream>
 using namespace std;
-template <class T>
+template <typename T>
 class Array {
 private:
 	T* dataArray;
@@ -20,16 +20,12 @@ public:
 	}
 	
 	
-	virtual ~Array() {};
+	virtual ~Array() {
+		delete[] dataArray;
+	};
 	
-	void clearArray() {
-		if (size < 0) {
-			delete[] dataArray;
-			size = 0;
-		}
-	}
 	
-	friend ostream& operator<<(ostream& output, Array<T>* obj) {
+	friend ostream& operator<<(ostream& output, Array<T> *obj) {
 		for (int i = 0; i < size; i++) {
 			output << obj[i];
 		}
@@ -39,7 +35,6 @@ public:
 	T& operator[](int i) {
 		return dataArray[i];
 	}
-	
 	
 };
 

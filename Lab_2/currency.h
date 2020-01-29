@@ -15,6 +15,7 @@ protected:
 public:
 	Currency();
 	Currency(int wholeAmount, int fractionAmount);
+	Currency(string x);
 	string getNoteName();
 	double getValue();
 	int getWholeParts();
@@ -26,6 +27,8 @@ public:
 
 	friend ostream& operator<<(ostream& output, Currency& obj);
 	friend istream& operator>>(istream& input, Currency& obj);
+	friend bool operator> (Currency& obj1, Currency& obj2);
+	friend bool operator< (Currency& obj1, Currency& obj2);
 };
 
 
