@@ -121,10 +121,10 @@ bool Wallet::isWalletEmpty() {
 string Wallet::listWallet() {
 
     string list;
-    
+
     for (int i = 0; i < arraySize(); i++) {
         ostringstream valueObj;
-        
+
         string type = currencies[i]->getNoteName();
         double dbleVal = currencies[i]->getValue();
         valueObj << fixed;
@@ -132,11 +132,11 @@ string Wallet::listWallet() {
         valueObj << dbleVal;
         string value = valueObj.str();
         list += (type + ": " + value + "\n");
-        
+
     }
     return list;
 
-    
 
-   
+
+
 }
