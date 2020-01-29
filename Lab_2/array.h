@@ -6,7 +6,7 @@
 
 using namespace std;
 /*
-Template Array Class.
+Template array class.
 This allows us to create an array of a generic type, T.
 
 */
@@ -16,27 +16,18 @@ private:
 	T* dataArray;
 	int size;
 public:
-	Array() {
-		size = 0;
-	}
-	
-	Array(int givenSize) {
-		dataArray = new T[givenSize];
-		size = givenSize;
-	}
-	
-	virtual ~Array() {
-		delete[] dataArray;
-	};
+	Array();
+	Array(int givenSize);
+	virtual ~Array();
 	
 	//operator overloads
-	friend ostream& operator<<(ostream& output, Array<T> *obj) {
+	friend ostream& operator<<(ostream& output, Array<T>* obj) {
 		for (int i = 0; i < size; i++) {
 			output << obj[i];
 		}
 		return output;
+		
 	}
-
 	T& operator[](int i) {
 		return dataArray[i];
 	}
@@ -44,6 +35,20 @@ public:
 };
 
 
+template <class T>
+Array<T>::Array() {
+	size = 0;
+}
 
+template <class T>
+Array<T>::Array(int givenSize) {
+	dataArray = new T[givenSize];
+	size = givenSize;
+}
+
+template <class T>
+Array<T>::~Array() {
+	delete[] dataArray;
+}
 
 #endif

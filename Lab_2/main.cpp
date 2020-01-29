@@ -1,5 +1,6 @@
 /*
 Brian Le, Luke Marshall
+De Anza College
 CIS22C - Lab 2
 
 */
@@ -12,12 +13,7 @@ CIS22C - Lab 2
 using namespace std;
 
 const int MAX_SORT_SIZE = 16;
-/*
-TODO:
--find a way to have cout only in main
--finish up input validation in main
 
-*/
 int main() {
 	int numElements;
 	string type;
