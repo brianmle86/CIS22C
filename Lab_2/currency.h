@@ -32,26 +32,31 @@ public:
 //children classes
 class Dollar : public Currency {
 public:
+	Dollar();
 	Dollar(int wholeAmount, int fractionAmount);
 };
 
 class Euro : public Currency {
 public:
+	Euro();
 	Euro(int wholeAmount, int fractionAmount);
 };
 
 class Yen : public Currency {
 public:
+	Yen();
 	Yen(int wholeAmount, int fractionAmount);
 };
 
 class Rupee : public Currency {
 public:
+	Rupee();
 	Rupee(int wholeAmount, int fractionAmount);
 };
 
 class Yuan : public Currency {
 public:
+	Yuan();
 	Yuan(int wholeAmount, int fractionAmount);
 };
 

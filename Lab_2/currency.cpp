@@ -59,23 +59,36 @@ istream& operator>>(istream& input, Currency& obj) { //friend function can acces
 	return input;
 }
 
+
+
+
+
+
+Dollar::Dollar() : Currency() {};
 Dollar::Dollar(int wholeAmount, int fractionAmount) : Currency(wholeAmount, fractionAmount) {
 	note = "Dollar";
 	coin = "cent";
 }
 
+Euro::Euro() : Currency() {};
 Euro::Euro(int wholeAmount, int fractionAmount) : Currency(wholeAmount, fractionAmount) {
 	note = "Euro";
 	coin = "cent";
 }
+
+Yen::Yen() : Currency() {};
 Yen::Yen(int wholeAmount, int fractionAmount) : Currency(wholeAmount, fractionAmount) {
 	note = "Yen";
 	coin = "sen";
 }
+
+Rupee::Rupee() : Currency() {};
 Rupee::Rupee(int wholeAmount, int fractionAmount) : Currency(wholeAmount, fractionAmount) {
 	note = "Rupee";
 	coin = "paise";
 }
+
+Yuan::Yuan() : Currency() {};
 Yuan::Yuan(int wholeAmount, int fractionAmount) : Currency(wholeAmount, fractionAmount) {
 	note = "Yuan";
 	coin = "fen";

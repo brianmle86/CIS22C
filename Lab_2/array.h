@@ -19,6 +19,7 @@ public:
 		size = givenSize;
 	}
 	
+	
 	virtual ~Array() {};
 	
 	void clearArray() {
@@ -28,23 +29,19 @@ public:
 		}
 	}
 	
-	ostream& operator<<(ostream& output, Array<T>* obj) {
+	friend ostream& operator<<(ostream& output, Array<T>* obj) {
 		for (int i = 0; i < size; i++) {
 			output << obj[i];
 		}
 		return output;
 	}
 	
-	
-	
-	T& Array<T>::operator[](int i) {
+	T& operator[](int i) {
 		return dataArray[i];
 	}
+	
+	
 };
-
-
-
-
 
 
 

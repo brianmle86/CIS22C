@@ -3,7 +3,7 @@
 #define SORT_H
 #include "array.h"
 template <class T>
-class Sort { //needs to be a class because our sort func needs to sort ints, strings, and currencies
+class Sort { //needs to be a template class because our sort func needs to sort ints, strings, and currencies
 private:
 	T* dataArray;
 	int size;
@@ -34,7 +34,7 @@ public:
             
         }
 	}
-	void swapVal(T &a, T &b) {
+	static void swapVal(T &a, T &b) {
 		T temp;
 		temp = a;
 		a = b;
