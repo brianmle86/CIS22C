@@ -49,13 +49,14 @@ Sort<T>::~Sort() {
 
 template <class T>
 void Sort<T>::RecurSelectionSort(Array<T>& toSort, int size, int x) {
-    if (size - x == size) {//initial call
+    if (size - x == size) {//initial call, when x is 0 (default argument)
         outFile.open("out.txt");
         outFile << "Brian Le, Luke Marshall\nCIS22C - Lab 2\n\n";
-        cout << "input array: ";
+        cout << "\ninput array: ";
+        outFile << "input array: ";
         for (int i = 0; i < size; i++) {
             cout << toSort[i] << " ";
-            outFile << "input array: " << toSort[i] << " ";
+            outFile << toSort[i] << " ";
         }
         cout << endl;
         outFile << endl;
@@ -66,7 +67,7 @@ void Sort<T>::RecurSelectionSort(Array<T>& toSort, int size, int x) {
     }
     else {
         T max = toSort[x]; //assume first value is largest
-        int maxIndex = x;
+        int maxIndex = x; //therefore, set that index as maxIndex
 
         for (int i = x; i < size; ++i) {
             if (toSort[i] > max) { //found a value that's larger than the current max

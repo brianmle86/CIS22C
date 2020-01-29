@@ -37,7 +37,7 @@ int main() {
 		Array<int> dataArray(numElements);
 		
 		for (int i = 0; i < numElements; i++) {
-			cout << "Please enter element #" << i + 1 << ": ";
+			cout << "Please enter integer element #" << i + 1 << ": ";
 			cin >> dataArray[i];
 		}
 		Sort<int>::RecurSelectionSort(dataArray, numElements);
@@ -47,7 +47,7 @@ int main() {
 	else if (type == "string") {
 		Array<string> dataArray(numElements);
 		for (int i = 0; i < numElements; i++) {
-			cout << "Please enter element #" << i + 1 << ": ";
+			cout << "Please enter string element #" << i + 1 << ": ";
 			cin >> dataArray[i];
 		}
 		Sort<string>::RecurSelectionSort(dataArray, numElements);
@@ -56,7 +56,7 @@ int main() {
 	else if (type == "Dollar") {
 		Array<Dollar> dataArray(numElements);
 		for (int i = 0; i < numElements; i++) {
-			cout << "Please enter element #" << i + 1 << " in the form wholeParts, fractionParts: ";
+			cout << "Please enter Dollar element #" << i + 1 << " in the form wholeParts, fractionParts: ";
 			cin >> dataArray[i];
 		}
 		Sort<Dollar>::RecurSelectionSort(dataArray, numElements);
