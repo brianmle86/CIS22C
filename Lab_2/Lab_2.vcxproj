@@ -20,7 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="array.h" />
+    <ClInclude Include="currency.h" />
     <ClInclude Include="sort.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="currency.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

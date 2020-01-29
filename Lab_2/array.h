@@ -2,7 +2,8 @@
 #ifndef ARRAY_H
 #define ARRAY_H
 #include <string>
-
+#include <iostream>
+using namespace std;
 template <class T>
 class Array {
 private:
@@ -26,12 +27,22 @@ public:
 			size = 0;
 		}
 	}
-
-	void displayArray() {
-
+	
+	ostream& operator<<(ostream& output, Array<T>* obj) {
+		for (int i = 0; i < size; i++) {
+			output << obj[i];
+		}
+		return output;
 	}
-
+	
+	
+	
+	T& Array<T>::operator[](int i) {
+		return dataArray[i];
+	}
 };
+
+
 
 
 
