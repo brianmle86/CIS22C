@@ -25,6 +25,7 @@ public:
 	void addFractionParts(int num);
 	void resetToBlankObj();
 
+	//operator overloads
 	friend ostream& operator<<(ostream& output, Currency& obj);
 	friend istream& operator>>(istream& input, Currency& obj);
 	friend bool operator> (Currency& obj1, Currency& obj2);

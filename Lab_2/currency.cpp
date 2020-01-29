@@ -51,7 +51,7 @@ void Currency::resetToBlankObj() {
 	coin = "";
 }
 ostream& operator<<(ostream& output, Currency& obj) {
-	output << ((double(obj.wholeParts) + (obj.fractionParts / 100.0)));
+	output << "$" << ((double(obj.wholeParts) + (obj.fractionParts / 100.0)));
 	return output;
 }
 

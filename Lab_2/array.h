@@ -3,8 +3,14 @@
 #define ARRAY_H
 #include <string>
 #include <iostream>
+
 using namespace std;
-template <typename T>
+/*
+Template Array Class.
+This allows us to create an array of a generic type, T.
+
+*/
+template <class T>
 class Array {
 private:
 	T* dataArray;
@@ -19,19 +25,18 @@ public:
 		size = givenSize;
 	}
 	
-	
 	virtual ~Array() {
 		delete[] dataArray;
 	};
 	
-	
+	//operator overloads
 	friend ostream& operator<<(ostream& output, Array<T> *obj) {
 		for (int i = 0; i < size; i++) {
 			output << obj[i];
 		}
 		return output;
 	}
-	
+
 	T& operator[](int i) {
 		return dataArray[i];
 	}

@@ -1,3 +1,9 @@
+/*
+Brian Le, Luke Marshall
+CIS22C - Lab 2
+
+*/
+
 #include <iostream>
 #include <string>
 #include "array.h"
@@ -10,13 +16,12 @@ const int MAX_SORT_SIZE = 16;
 TODO:
 -find a way to have cout only in main
 -finish up input validation in main
--file I/O
--documentation
+
 */
 int main() {
 	int numElements;
 	string type;
-	bool flag = true;
+	
 	cout << "Please enter the number of elements you wish to sort: ";
 	cin >> numElements;
 	
@@ -25,15 +30,12 @@ int main() {
 		cin >> numElements;
 	}
 	
-	
-	
-	
-	
-	
-	
 	cout << "Please enter the desired element type(int, string, Dollar): ";
 	cin >> type;
-	//input validation - type
+	while (type != "int" && type != "string" && type != "Dollar") {
+		cout << "Invalid type! Try again: ";
+		cin >> type;
+	}
 	
 	if (type == "int") {
 		Array<int> dataArray(numElements);
@@ -65,9 +67,6 @@ int main() {
 	}
 
 
-
-
-
-
+	system("pause");
 	return 0;
 }
