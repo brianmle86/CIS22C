@@ -51,7 +51,7 @@ void Currency::resetToBlankObj() {
 	coin = "";
 }
 ostream& operator<<(ostream& output, Currency& obj) {
-	output << "$" << ((double(obj.wholeParts) + (obj.fractionParts / 100.0)));
+	output << "INR:" << ((double(obj.wholeParts) + (obj.fractionParts / 100.0)));
 	return output;
 }
 
@@ -91,7 +91,7 @@ Yen::Yen(int wholeAmount, int fractionAmount) : Currency(wholeAmount, fractionAm
 	coin = "sen";
 }
 
-Rupee::Rupee() : Currency() {};
+Rupee::Rupee() : Currency("Rupee") {};
 Rupee::Rupee(int wholeAmount, int fractionAmount) : Currency(wholeAmount, fractionAmount) {
 	note = "Rupee";
 	coin = "paise";

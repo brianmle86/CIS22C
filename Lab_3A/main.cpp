@@ -1,10 +1,13 @@
 #include <iostream>
-#include "node.h"
+
 #include "list.h"
 #include "currency.h"
-#include "sort.h"
-
-
+//   !!! NOTE !!!
+//sorting linked lists is just stupid. too much pointer fuckery
+//assignment is asking for sorted and unsorted lists, simply creating the lists here will suffice in demonstrating our List ADT
+//despite warnings in assignment, slight modification to currency.cpp is necessary to ensure Rupee objects are functional. 
+//operator overloads do not work with inheritance, so "$" was changed to "INR"
+//we assume that the assignment means sorted (ascending or descending) or not sorted at all, where (ascending or descending) means the state of being sorted
 using namespace std;
 int main() {
 	int data;
@@ -14,28 +17,23 @@ int main() {
 	List <string> stringList;
 	List <Rupee> rupeeList;
 
-
-
-	for (int i = 0; i < 12; i++) {
-		cout << "Please enter integer element #" << i + 1 << ": ";
-		cin >> data;
-		intList.pushNode(data);
+	for (int i = 0; i < 20; i++) {
+		intList.pushNode(i + 1); //nums 1-20
+		intList.setSortStatus(true);
 	}
-	Sort<int>::RecurSelectionSort(intList, 12);
-
 
 	for (int i = 0; i < 20; i++) {
-		cout << "Please enter string element #" << i + 1 << ": ";
-		cin >> dataString;
-		stringList.pushNode(dataString);
+		//assignment wants strings in descending order.
+		//pull 20 strings from a txt file and push to list
+		stringList.setSortStatus(true);
 	}
-	Sort<string>::RecurSelectionSort(stringList, 12);
 
-	for (int i = 0; i < 11; i++) {
-		cout << "Please enter Dollar element #" << i + 1 << " in the form wholeParts, fractionParts: ";
-		cin >> data;
-		rupeeList.pushNode(data);
+	for (int i = 0; i < 10; i++) {
+		//assignment calls for unordered list. ask for user input and push to list
+		//isSorted is false by default
 	}
+
+	
 	
 
 	cout << "this is lab 3a main\n";

@@ -1,7 +1,7 @@
 #pragma once
 #ifndef SORT_H
 #define SORT_H
-#include "list.h"
+#include "array.h"
 #include <iostream>
 #include <fstream>
 ofstream outFile;
@@ -16,11 +16,11 @@ We are using static functions because we are not creating objects of Sort.
 template <class T>
 class Sort {
 private:
-    T* data;
+    T* dataArray;
     int size;
 
 public:
-    Sort(List<T> lst, int s);
+    Sort(Array<T> arr, int s);
     virtual ~Sort();
 
     /*
@@ -28,7 +28,7 @@ public:
     While doing so, it displays and writes to a file "out.txt" the array each
     time it is called. Function static because we'll use it with no object.
     */
-    static void RecurSelectionSort(List<T>& toSort, int size, int x = 0);
+    static void RecurSelectionSort(Array<T>& toSort, int size, int x = 0);
 
     //simple swap function
     static void swapVal(T& a, T& b);
@@ -36,22 +36,22 @@ public:
 
 
 template <class T>
-Sort<T>::Sort(List<T> lst, int s) {
-    data = lst;
+Sort<T>::Sort(Array<T> arr, int s) {
+    dataArray = arr;
     size = s;
 
 }
 
 template <class T>
 Sort<T>::~Sort() {
-    delete[] data;
+    delete[] dataArray;
 }
 
 template <class T>
-void Sort<T>::RecurSelectionSort(List<T>& toSort, int size, int x) {
+void Sort<T>::RecurSelectionSort(Array<T>& toSort, int size, int x) {
     if (size - x == size) {//initial call, when x is 0 (default argument)
         outFile.open("out.txt");
-        outFile << "Brian Le, Luke Marshall\nCIS22C - Lab 3A\n\n";
+        outFile << "Brian Le, Luke Marshall\nCIS22C - Lab 2\n\n";
         cout << "\ninput array: ";
         outFile << "input array: ";
         for (int i = 0; i < size; i++) {

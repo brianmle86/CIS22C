@@ -5,11 +5,10 @@
 template<typename T>
 
 class Node {
-protected:
+public:
 	T data;
 	Node<T>* next;
 
-public:
 	Node(T x);
 	~Node();
 };
@@ -22,6 +21,6 @@ Node<T>::Node(T x) {
 
 template<typename T>
 Node<T>::~Node() {
-	next = nullptr; //delete maybe?
+	next = nullptr;
 }
 #endif
