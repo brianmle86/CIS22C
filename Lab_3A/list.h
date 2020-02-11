@@ -4,12 +4,7 @@
 #include "node.h"
 #include <iostream>
 #include <string>
-/*
-TODO:
-push ascending
-push descending
-if unsorted, push to end of list
-*/
+
 template<typename T>
 class List {
 protected:

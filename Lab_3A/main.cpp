@@ -24,7 +24,7 @@ int main() {
 		cin >> intInput;
 		intList.insertNode(intInput);
 	}
-	/*
+	
 	cout << "Please enter 10 strings. ";
 	for (int i = 0; i < 10; i++) {
 		cout << "string #" << i + 1 << ": ";
@@ -38,11 +38,11 @@ int main() {
 		cin >> rupeeInput;
 		rupeeList.insertNode(rupeeInput);
 	}
-	*/
+	
 	
 	intList.printList();
-	//stringList.printList();
-	//rupeeList.printList();
+	stringList.printList();
+	rupeeList.printList();
 	
 	while (menu) {
 		cout << "\nChoose an option:\n"
@@ -124,7 +124,7 @@ int main() {
 				rupeeList.printList();
 			}
 		}
-		/*
+		
 		else if (option == 4) {
 			cout << "where would you like to find a value?\n"
 				<< "1 - int list\n"
@@ -147,7 +147,7 @@ int main() {
 				cout << "position: " << rupeeList.findValue(rupeeInput) << endl;
 			}
 		}
-		*/
+		
 		else if (option == 5) {
 			menu = false;
 		}

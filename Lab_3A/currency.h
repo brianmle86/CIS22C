@@ -30,6 +30,7 @@ public:
 	friend istream& operator>>(istream& input, Currency& obj);
 	friend bool operator> (Currency& obj1, Currency& obj2);
 	friend bool operator< (Currency& obj1, Currency& obj2);
+	friend bool operator== (Currency& obj1, Currency& obj2);
 };
 
 
