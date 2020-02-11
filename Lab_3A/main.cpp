@@ -5,8 +5,6 @@
 
 using namespace std;
 int main() {
-	int data;
-	string dataString;
 	int intInput;
 	string stringInput;
 	Rupee rupeeInput;
@@ -14,13 +12,13 @@ int main() {
 	int option, option2;
 
 	// 0 - unsorted, 1 - ascending, 2 - descending
-	List <int> intList(2);
+	List <int> intList(1);
 	List <string> stringList(2);
 	List <Rupee> rupeeList(0);
 
 	cout << "First, please enter all the ints, strings, and rupee objects so the lists can be created.\n\n";
 
-	cout << "Please enter 10 ints. ";
+	cout << "Please enter 10 ints.\n";
 	for (int i = 0; i < 10; i++) {
 		cout << "int #" << i + 1 << ": ";
 		cin >> intInput;

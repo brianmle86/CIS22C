@@ -86,6 +86,7 @@ void List<T>::insertNode(T value) {
 			if (toInsert->data < head->data) {
 				toInsert->next = head;
 				head = toInsert;
+				numNodes++;
 				return;
 			}
 
@@ -123,6 +124,7 @@ void List<T>::insertNode(T value) {
 			if (toInsert->data > head->data) {
 				toInsert->next = head;
 				head = toInsert;
+				numNodes++;
 				return;
 			}
 
@@ -149,24 +151,43 @@ void List<T>::insertNode(T value) {
 
 template <typename T>
 void List<T>::removeNode(int pos) {
-	Node<T>* temp;
+	Node<T>* temp = head;
 	Node<T>* toRemove;
+	Node<T>* prev, * cur;
 
-	temp = head->next;
-	if (pos == 1) {
-		delete head;
-		head = temp;
-		numNodes--;
+	//if list is empty
+	if (numNodes == 0) {
 		return;
 	}
-	for (int i = 1; i < pos - 1; i++)
-		temp = temp->next;
-	toRemove = temp;
-	temp = toRemove->next;
-	delete toRemove;
-	numNodes--;
 
+	//if position is head
+	if (pos == 1) {
+		temp = head;
+		head = head->next;
+		delete temp;
+		numNodes--;
+	}
 
+	//if position is tail
+	else if (pos == numNodes) {
+		for (int i = 1; i < pos - 1; i++)
+			temp = temp->next;
+		toRemove = temp->next;
+		temp->next = nullptr;
+		delete toRemove;
+		numNodes--;
+		tail = temp;
+	}
+
+	//else, removing from somewhere in middle of list
+	else {
+		for (int i = 1; i < pos - 1; i++)
+			temp = temp->next;
+		toRemove = temp->next;
+		temp->next = toRemove->next;
+		delete toRemove;
+		numNodes--;
+	}
 }
 template <typename T>
 int List<T>::findValue(T value) {
@@ -190,18 +211,19 @@ int List<T>::getSize() {
 
 template <typename T>
 void List<T>::deleteList() {
-	Node<T>* nodePtr;
+	Node<T>* nodePtr = head;
 	Node<T>* temp;
-	nodePtr = head;
-
+	
 	while (nodePtr != nullptr) {
 		temp = nodePtr->next;
 		delete nodePtr;
 		nodePtr = temp;
+		numNodes--;
 	}
-	numNodes = 0;
+	//numNodes = 0;
 	head = nullptr;
 	tail = nullptr;
+	
 }
 
 template <typename T>
@@ -223,9 +245,10 @@ template <typename T>
 void List<T>::printList() {
 	if (numNodes == 0) {
 		std::cout << "(empty)\n";
+		return;
 	}
 	Node<T>* temp = head;
-
+	std::cout << "\n# nodes: " << numNodes << std::endl;
 	while (temp->next != nullptr) {
 		std::cout << temp->data << " ";
 		temp = temp->next;
