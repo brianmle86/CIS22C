@@ -1,9 +1,0 @@
-Brian Le, Luke Marshall
-CIS22C - Lab 2
-
-input array: I love C++ very much !!! 
-very love C++ I much !!! 
-very much C++ I love !!! 
-very much love I C++ !!! 
-very much love I C++ !!! 
-very much love I C++ !!! 
