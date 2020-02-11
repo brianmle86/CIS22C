@@ -4,6 +4,10 @@
 #include "currency.h"
 
 using namespace std;
+
+
+
+
 int main() {
 	int intInput;
 	string stringInput;
@@ -17,11 +21,17 @@ int main() {
 	List <Rupee> rupeeList(0);
 
 	cout << "First, please enter all the ints, strings, and rupee objects so the lists can be created.\n\n";
-
+	
 	cout << "Please enter 10 ints.\n";
 	for (int i = 0; i < 10; i++) {
 		cout << "int #" << i + 1 << ": ";
 		cin >> intInput;
+		while (!cin){
+			cout << "Not a valid input. Try again. ";
+			cin.clear();
+			cin.ignore();
+			cin >> intInput;
+		}
 		intList.insertNode(intInput);
 	}
 	
@@ -30,14 +40,24 @@ int main() {
 		cout << "string #" << i + 1 << ": ";
 		cin >> stringInput;
 		stringList.insertNode(stringInput);
-	}
 
+	}
+	
+
+	
 	cout << "Please enter 10 rupee values. Enter in form wholeAmount, fractionAmount. ";
 	for (int i = 0; i < 10; i++) {
 		cout << "rupee amount #" << i + 1 << ": ";
 		cin >> rupeeInput;
+		while (!cin) {
+			cout << "Not a valid input. Try again. ";
+			cin.clear();
+			cin.ignore();
+			cin >> rupeeInput;
+		}
 		rupeeList.insertNode(rupeeInput);
 	}
+	
 	
 	
 	intList.printList();
@@ -52,6 +72,10 @@ int main() {
 			<< "4 - get position of value\n"
 			<< "5 - exit\n";
 		cin >> option;
+		while (option > 5 || option < 1) {
+			cout << "Not a valid input. Try again. ";
+			cin >> option;
+		}
 
 		if (option == 1) {
 			cout << "\nWhat would you like to add to?\n"
@@ -59,6 +83,10 @@ int main() {
 				<< "2 - string list\n"
 				<< "3 - rupee object list\n";
 			cin >> option2;
+			while (option2 > 3 || option2 < 1) {
+				cout << "Not a valid input. Try again. ";
+				cin >> option2;
+			}
 			if (option2 == 1) {
 				cout << "\nint to add: ";
 				cin >> intInput;
@@ -85,6 +113,10 @@ int main() {
 				<< "2 - string list\n"
 				<< "3 - rupee object list\n";
 			cin >> option2;
+			while (option2 > 3 || option2 < 1) {
+				cout << "Not a valid input. Try again. ";
+				cin >> option2;
+			}
 			if (option2 == 1) {
 				cout << "\nposition of int to remove: ";
 				cin >> intInput;
@@ -111,6 +143,10 @@ int main() {
 				<< "2 - string list\n"
 				<< "3 - rupee object list\n";
 			cin >> option2;
+			while (option2 > 3 || option2 < 1) {
+				cout << "Not a valid input. Try again. ";
+				cin >> option2;
+			}
 			if (option2 == 1) {
 				intList.deleteList();
 				intList.printList();
@@ -131,6 +167,10 @@ int main() {
 				<< "2 - string list\n"
 				<< "3 - rupee object list\n";
 			cin >> option2;
+			while (option2 > 3 || option2 < 1) {
+				cout << "Not a valid input. Try again. ";
+				cin >> option2;
+			}
 			if (option2 == 1) {
 				cout << "value: ";
 				cin >> intInput;
