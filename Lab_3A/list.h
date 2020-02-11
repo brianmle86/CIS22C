@@ -3,26 +3,32 @@
 #define LIST_H
 #include "node.h"
 #include <iostream>
-
+#include <string>
+/*
+TODO:
+push ascending
+push descending
+if unsorted, push to end of list
+*/
 template<typename T>
 class List {
 protected:
 	int numNodes;
 	Node<T>* head;
 	Node<T>* tail;
-	bool isSorted = false;
+	int sortStatus;
 
 public:
 	List();
+	List(int s);
 	virtual ~List();
-	void pushNode(T value);
+	void insertNode(T value);
 	void removeNode(int pos);
 	int findValue(T value);
 	int getSize();
 	void deleteList();
 	T getValue(int pos);
 	void printList();
-	void setSortStatus(bool status);
 };
 
 template <typename T>
@@ -34,26 +40,111 @@ List<T>::List() {
 }
 
 template <typename T>
+List<T>::List(int s) {
+	numNodes = 0;
+	head = nullptr;
+	tail = nullptr;
+	sortStatus = s; // 0 - unsorted, 1 - ascending, 2 - descending
+}
+
+template <typename T>
 List<T>::~List() {
 	deleteList();
 }
 
 template <typename T>
-void List<T>::pushNode(T value) {
-	Node<T>* toPush = new Node<T>(value);
+void List<T>::insertNode(T value) {
+	Node<T>* toInsert = new Node<T>(value);
 	Node<T>* temp = nullptr;
 
-	if (numNodes == 0) {
-		head = toPush;
-		tail = head;
-		numNodes++;
+	if (sortStatus == 0) { //unsorted push
+		if (numNodes == 0) {
+			head = toInsert;
+			tail = head;
+			numNodes++;
+		}
+		else {
+
+			tail->next = toInsert;
+			tail = tail->next;
+			numNodes++;
+		}
 	}
-	else {
-		temp = head;
-		head = toPush;
-		toPush->next = temp;
-		numNodes++;
+
+	else if (sortStatus == 1) { //ascending push
+		if (numNodes == 0) {
+			head = toInsert;
+			tail = head;
+			numNodes++;
+		}
+		else {
+			Node<T>* temp, * prev;
+			temp = head->next;
+			prev = head;
+
+			//if we need to insert before the head node
+			if (toInsert->data < head->data) {
+				toInsert->next = head;
+				head = toInsert;
+				return;
+			}
+
+			while (temp != nullptr && temp->data < toInsert->data) {
+				prev = temp;
+				temp = temp->next;
+			}
+			toInsert->next = temp;
+			prev->next = toInsert;
+			numNodes++;
+
+			//we need to update the list's tail node
+			temp = head->next;
+			prev = head;
+			while (temp != nullptr) {
+				prev = temp;
+				temp = temp->next;
+			}
+			tail = prev;
+		}
 	}
+
+	else if (sortStatus == 2) { //descending push
+		if (numNodes == 0) {
+			head = toInsert;
+			tail = head;
+			numNodes++;
+		}
+		else {
+			Node<T>* temp, * prev;
+			temp = head->next;
+			prev = head;
+
+			//if new data is greater than head node's data, insert to beginning of list
+			if (toInsert->data > head->data) {
+				toInsert->next = head;
+				head = toInsert;
+				return;
+			}
+
+			while (temp != nullptr && temp->data > toInsert->data) {
+				prev = temp;
+				temp = temp->next;
+			}
+			toInsert->next = temp;
+			prev->next = toInsert;
+			numNodes++;
+
+			//since we originally set head = tail, we need to update the list's tail node
+			temp = head->next;
+			prev = head;
+			while (temp != nullptr) {
+				prev = temp;
+				temp = temp->next;
+			}
+			tail = prev;
+		}
+	}
+
 }
 
 template <typename T>
@@ -61,16 +152,17 @@ void List<T>::removeNode(int pos) {
 	Node<T>* temp;
 	Node<T>* toRemove;
 
-	temp = head;
+	temp = head->next;
 	if (pos == 1) {
 		delete head;
+		head = temp;
 		numNodes--;
 		return;
 	}
 	for (int i = 1; i < pos - 1; i++)
 		temp = temp->next;
-	toRemove = temp->next;
-	temp->next = toRemove->next;
+	toRemove = temp;
+	temp = toRemove->next;
 	delete toRemove;
 	numNodes--;
 
@@ -129,17 +221,17 @@ T List<T>::getValue(int pos) {
 
 template <typename T>
 void List<T>::printList() {
-	Node<T>* temp;
+	if (numNodes == 0) {
+		std::cout << "(empty)\n";
+	}
+	Node<T>* temp = head;
 
 	while (temp->next != nullptr) {
 		std::cout << temp->data << " ";
 		temp = temp->next;
 	}
-	std::cout << std::endl;
+	std::cout << tail->data << " " << std::endl;
 }
 
-template <typename T>
-void List<T>::setSortStatus(bool status) {
-	isSorted = status;
-}
+
 #endif
