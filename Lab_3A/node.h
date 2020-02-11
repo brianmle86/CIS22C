@@ -2,8 +2,10 @@
 #ifndef NODE_H
 #define NODE_H
 
+/*
+Node for use in linked lists.
+*/
 template<typename T>
-
 class Node {
 public:
 	T data;

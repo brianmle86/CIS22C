@@ -66,7 +66,7 @@ bool operator> (Currency& obj1, Currency& obj2) {
 }
 
 bool operator< (Currency& obj1, Currency& obj2) {
-	return ((double(obj1.wholeParts) + (obj1.fractionParts / 100.0)) > (double(obj2.wholeParts) + (obj2.fractionParts / 100.0)));
+	return ((double(obj1.wholeParts) + (obj1.fractionParts / 100.0)) < (double(obj2.wholeParts) + (obj2.fractionParts / 100.0)));
 }
 
 bool operator== (Currency& obj1, Currency& obj2) {

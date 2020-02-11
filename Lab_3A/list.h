@@ -5,6 +5,11 @@
 #include <iostream>
 #include <string>
 
+/*
+List ADT.
+This is the class for a linked list which has all its typical functions.
+Note that it can insert in a sorted, or unsorted manner.
+*/
 template<typename T>
 class List {
 protected:
@@ -34,6 +39,7 @@ List<T>::List() {
 
 }
 
+//overloaded constructor for List, which defines how node insertion behaves
 template <typename T>
 List<T>::List(int s) {
 	numNodes = 0;
@@ -47,27 +53,27 @@ List<T>::~List() {
 	deleteList();
 }
 
+//inserts a node based on value of sortStatus
 template <typename T>
 void List<T>::insertNode(T value) {
-	Node<T>* toInsert = new Node<T>(value);
+	Node<T>* toInsert = new Node<T>(value); //node to insert
 	Node<T>* temp = nullptr;
 
-	if (sortStatus == 0) { //unsorted push
-		if (numNodes == 0) {
+	if (sortStatus == 0) { //unsorted insert
+		if (numNodes == 0) { //if list is empty
 			head = toInsert;
 			tail = head;
 			numNodes++;
 		}
-		else {
-
-			tail->next = toInsert;
+		else { //else insert to end of list
+			tail->next = toInsert; 
 			tail = tail->next;
 			numNodes++;
 		}
 	}
 
-	else if (sortStatus == 1) { //ascending push
-		if (numNodes == 0) {
+	else if (sortStatus == 1) { //insert in ascending order
+		if (numNodes == 0) { //if list is empty
 			head = toInsert;
 			tail = head;
 			numNodes++;
@@ -75,7 +81,7 @@ void List<T>::insertNode(T value) {
 		else {
 			Node<T>* temp, * prev;
 			temp = head->next;
-			prev = head;
+			prev = head; //we need to keep track of the previous node
 
 			//if we need to insert before the head node
 			if (toInsert->data < head->data) {
@@ -85,15 +91,18 @@ void List<T>::insertNode(T value) {
 				return;
 			}
 
+			//we're inserting in ascending order, so compare toInsert to nodes in list
 			while (temp != nullptr && temp->data < toInsert->data) {
 				prev = temp;
 				temp = temp->next;
 			}
+
+			//insert node in correct location by changing previous node's next pointer
 			toInsert->next = temp;
 			prev->next = toInsert;
 			numNodes++;
 
-			//we need to update the list's tail node
+			//since we originally set head = tail, we need to update the list's tail node
 			temp = head->next;
 			prev = head;
 			while (temp != nullptr) {
@@ -104,7 +113,7 @@ void List<T>::insertNode(T value) {
 		}
 	}
 
-	else if (sortStatus == 2) { //descending push
+	else if (sortStatus == 2) { //insert in descending order
 		if (numNodes == 0) {
 			head = toInsert;
 			tail = head;
@@ -123,10 +132,12 @@ void List<T>::insertNode(T value) {
 				return;
 			}
 
+			//we're inserting in ascending order, so compare toInsert to nodes in list
 			while (temp != nullptr && temp->data > toInsert->data) {
 				prev = temp;
 				temp = temp->next;
 			}
+			//insert node in correct location by changing previous node's next pointer
 			toInsert->next = temp;
 			prev->next = toInsert;
 			numNodes++;
@@ -144,11 +155,11 @@ void List<T>::insertNode(T value) {
 
 }
 
+//removes a node at a given position
 template <typename T>
 void List<T>::removeNode(int pos) {
 	Node<T>* temp = head;
-	Node<T>* toRemove;
-	Node<T>* prev, * cur;
+	Node<T>* toRemove; //node to remove
 
 	//if list is empty
 	if (numNodes == 0) {
@@ -184,9 +195,11 @@ void List<T>::removeNode(int pos) {
 		numNodes--;
 	}
 }
+
+//returns the position of a node, given a value
 template <typename T>
 int List<T>::findValue(T value) {
-	Node<T>* temp = head;
+	Node<T>* temp = head; //using temp to traverse list
 
 	int count = 1; //position variable
 	while (temp != nullptr) {
@@ -195,15 +208,17 @@ int List<T>::findValue(T value) {
 		temp = temp->next;
 		count++;
 	}
-	return false; //value does not exist
+	return false; //value does not exist, so returning a non-position number(0), indicating failure
 
 }
 
+//gets size
 template <typename T>
 int List<T>::getSize() {
 	return numNodes;
 }
 
+//clears the list
 template <typename T>
 void List<T>::deleteList() {
 	Node<T>* nodePtr = head;
@@ -221,6 +236,7 @@ void List<T>::deleteList() {
 	
 }
 
+//gets value of a node, given its position
 template <typename T>
 T List<T>::getValue(int pos) {
 	Node<T>* temp;
@@ -236,6 +252,7 @@ T List<T>::getValue(int pos) {
 	
 }
 
+//displays the list to console
 template <typename T>
 void List<T>::printList() {
 	if (numNodes == 0) {
