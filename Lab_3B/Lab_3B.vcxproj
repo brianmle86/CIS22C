@@ -20,9 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{806E0A93-E5D4-4FDE-83E1-F4854B991CFB}</ProjectGuid>
-    <RootNamespace>Lab3A</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <ProjectGuid>{2ACAA08C-29F7-4E99-8519-4B61D6EE6FF6}</ProjectGuid>
+    <RootNamespace>Lab3B</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -141,6 +141,8 @@
     <ClInclude Include="currency.h" />
     <ClInclude Include="list.h" />
     <ClInclude Include="node.h" />
+    <ClInclude Include="queue.h" />
+    <ClInclude Include="stack.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="currency.cpp" />
