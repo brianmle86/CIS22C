@@ -39,6 +39,11 @@ public:
 		return List<T>::getSize();
 	}
 
+	void displayStack() {
+		cout << "\nStack: ";
+		List<T>::printList();
+	}
+
 	~Stack() {
 		clear();
 	}

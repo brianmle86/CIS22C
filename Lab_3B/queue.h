@@ -44,10 +44,14 @@ public:
 		return List<T>::getSize();
 	}
 
+	void displayQueue() {
+		cout << "\nQueue: ";
+		List<T>::printList();
+	}
+
 	~Queue() {
 		clear();
 	}
-
 
 };
 #endif

@@ -240,7 +240,6 @@ void List<T>::deleteList() {
 template <typename T>
 T List<T>::getValue(int pos) {
 	Node<T>* temp;
-	Node<T>* toRemove;
 
 	temp = head;
 	if (pos == 1) {
@@ -260,7 +259,7 @@ void List<T>::printList() {
 		return;
 	}
 	Node<T>* temp = head;
-	std::cout << "\n# nodes: " << numNodes << std::endl;
+	std::cout << numNodes << " nodes\n";
 	while (temp->next != nullptr) {
 		std::cout << temp->data << " ";
 		temp = temp->next;
