@@ -18,7 +18,7 @@ public:
 	Calculator();
 	Calculator(std::string ex);
 	double eval(double a, double b, char op); //evaluate (a) (operator) (b)
-	int getPrecedence(); //get operator precedence
+	int getPrecedence(char op); //get operator precedence
 	std::string getPostfix();
 	std::string getPrefix();
 	bool valid(); //verifies that expression is valid
