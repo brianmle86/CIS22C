@@ -4,21 +4,29 @@
 Calculator::Calculator() {
 
     expression = "";
-    postEx = "";
-    preEx = "";
+    //postEx = "";
+    //preEx = "";
     result = 0.0;
 }
 
-Calculator::Calculator(string ex) {
+Calculator::Calculator(std::string ex) {
     expression = ex;
 }
 
-Calculator::eval(double a, double b, char op) {
-
+double Calculator::eval(double a, double b, char op) {
+    if (op == '+')
+        return a + b;
+    else if (op == '-')
+        return a - b;
+    else if (op == '*')
+        return a * b;
+    else if (op == '/')
+        return a / b;
 
 }
 
-Calculator::getPrecedence(char op) {
+//Gets precedence of operator. 3 highest, 1 lowest
+int Calculator::getPrecedence(char op) {
     if (op == '^')
         return 3;
     else if (op == '*' || op == '/')
@@ -27,4 +35,28 @@ Calculator::getPrecedence(char op) {
         return 1;
     else
         return -1;
+}
+
+
+std::string Calculator::getPostfix() {
+    for (int i = 0; i < expression.size(); i++) {
+        if (!isOperator(expression[i])) {//if operand
+            postEx.push_back(expression[i]); //store operand
+            continue;
+        }
+
+        if (cStack.returnSize() == 0 || cStack.peek() == "(") {
+
+        }
+    }
+}
+
+std::string Calculator::getPrefix() {
+
+}
+
+bool Calculator::isOperator(char x) {
+    if (x == '+' || x == '-' || x == '*' || x == '/' || x == '(' || x == ')')
+        return true;
+    return false;
 }

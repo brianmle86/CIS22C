@@ -8,8 +8,8 @@
 class Calculator {
 private:
 	std::string expression;
-	Stack<char> cStack;
-	Queue<char> cQueue;
+	Stack<std::string> cStack;
+	Queue<std::string> infixQueue;
 	std::string postEx;
 	std::string preEx;
 	double result;
@@ -22,7 +22,7 @@ public:
 	std::string getPostfix();
 	std::string getPrefix();
 	bool valid(); //verifies that expression is valid
-	bool operandOrOperator(); //return true if operator, false if operand
+	bool isOperator(char x); //return true if operator, false if operand
 
 };
 
