@@ -29,6 +29,7 @@ public:
 	void deleteList();
 	T getValue(int pos);
 	void printList();
+	void reverseList();
 };
 
 template <typename T>
@@ -259,7 +260,7 @@ void List<T>::printList() {
 		return;
 	}
 	Node<T>* temp = head;
-	std::cout << numNodes << " nodes\n";
+	
 	while (temp->next != nullptr) {
 		std::cout << temp->data << " ";
 		temp = temp->next;
@@ -267,5 +268,26 @@ void List<T>::printList() {
 	std::cout << tail->data << " " << std::endl;
 }
 
+//reverse the list
+template <typename T>
+void List<T>::reverseList() {
+	Node<T>* temp = head;
+	Node<T>* current = head;
+	Node<T>* nextNode = nullptr;
+	Node<T>* prevNode = nullptr;
+
+	while (current != nullptr) {
+		nextNode = current->next;
+		current->next = prevNode;
+		prevNode = current;
+		current = nextNode;
+	}
+	head = prevNode;
+	tail = temp;
+		
+	
+	
+	
+}
 
 #endif

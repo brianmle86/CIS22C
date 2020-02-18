@@ -45,8 +45,11 @@ public:
 	}
 
 	void displayQueue() {
-		std::cout << "\nQueue: ";
 		List<T>::printList();
+	}
+	//reverse the queue
+	void reverseQueue() {
+		List<T>::reverseList();
 	}
 
 	~Queue() {
