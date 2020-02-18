@@ -8,22 +8,24 @@
 class Calculator {
 private:
 	std::string expression;
-	Stack<std::string> cStack;
-	Queue<std::string> infixQueue;
-	std::string postEx;
-	std::string preEx;
+	Queue<std::string> infixEx;
+	Queue<std::string> postEx;
+	Queue<std::string> preEx;
 	double result;
 
 public:
 	Calculator();
 	Calculator(std::string ex);
+	void tokenize();
 	double eval(double a, double b, char op); //evaluate (a) (operator) (b)
-	int getPrecedence(char op); //get operator precedence
-	std::string getPostfix();
+	int getPrecedence(std::string op); //get operator precedence
+	void getPostfix();
 	std::string getPrefix();
 	bool valid(); //verifies that expression is valid
-	bool isOperator(char x); //return true if operator, false if operand
+	bool isOperator(std::string x); //return true if operator, false if operand
 
+	void displayInfixEx();
+	void displayPostEx();
 };
 
 

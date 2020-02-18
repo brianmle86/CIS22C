@@ -40,7 +40,7 @@ public:
 	}
 
 	void displayStack() {
-		cout << "\nStack: ";
+		std::cout << "\nStack: ";
 		List<T>::printList();
 	}
 

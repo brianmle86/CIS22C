@@ -45,7 +45,7 @@ public:
 	}
 
 	void displayQueue() {
-		cout << "\nQueue: ";
+		std::cout << "\nQueue: ";
 		List<T>::printList();
 	}
 
