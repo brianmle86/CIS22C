@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef PERSON_H
+#define PERSON_H
+
 #include <string>
 
 class Person {
@@ -10,4 +13,9 @@ private:
 
 public:
 	Person();
+	std::string readFile(std::string content);
+	std::string getName();
+	std::string getBday();
 };
+
+#endif
