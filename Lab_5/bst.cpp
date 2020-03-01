@@ -4,4 +4,7 @@
 template <typename T>
 
 
-void bst<T>::insert(const T);
+void bst<T>::insert(const T) {
+
+
+};

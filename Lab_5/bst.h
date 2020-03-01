@@ -15,6 +15,9 @@ public:
 	
 	void insert(const T);
 	void inorder();
+	void preorder();
+	void postorder();
+	void 
 
 	
 };
