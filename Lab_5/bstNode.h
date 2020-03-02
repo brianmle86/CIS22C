@@ -1,4 +1,8 @@
 #pragma once
+#ifndef BSTNODE_H
+#define BSTNODE_H
+
+#include <iostream>
 
 template <typename T>
 class bstNode {
@@ -18,7 +22,8 @@ public:
 	T getData();
 	T* getLeft();
 	T* getRight();
-
+	
+	void displayData();
 
 	~bstNode();
 };
@@ -67,7 +72,14 @@ T* bstNode<T>::getRight() {
 }
 
 template <typename T>
+void bstNode<T>::displayData() {
+	std::cout << data << std::endl;
+}
+
+template <typename T>
 bstNode<T>::~bstNode() {
 	left = nullptr;
 	right = nullptr;
 }
+
+#endif

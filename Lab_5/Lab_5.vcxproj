@@ -144,7 +144,6 @@
     <ClInclude Include="person.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="bst.cpp" />
     <ClCompile Include="person.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
