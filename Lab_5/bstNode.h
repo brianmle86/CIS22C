@@ -3,7 +3,10 @@
 #define BSTNODE_H
 
 #include <iostream>
-
+/*
+Node for BST. Has pointers to left
+and right nodes.
+*/
 template <typename T>
 class bstNode {
 public:

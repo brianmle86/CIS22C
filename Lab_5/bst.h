@@ -3,7 +3,11 @@
 #define BST_H
 
 #include "bstNode.h"
-
+/*
+Binary Search Tree Class.
+Has all the typical functions related to BST. Also is able
+to traverse inorder, preorder, and postorder.
+*/
 template <typename T>
 class bst {
 private:
@@ -11,7 +15,11 @@ private:
 	int numNodes;
 
 	bstNode<T>* insert(bstNode<T>* node, T toInsert);
+	bstNode<T>* remove(bstNode<T>* node, T toRemove);
+	bstNode<T>* search(bstNode<T>* node, T value);
 	bstNode<T>* clear(bstNode<T>* node);
+	bstNode<T>* min(bstNode<T>* node);
+	bstNode<T>* max(bstNode<T>* node);
 	void inOrder(bstNode<T>* node);
 	void preOrder(bstNode<T>* node);
 	void postOrder(bstNode<T>* node);
@@ -21,6 +29,8 @@ public:
 	~bst();
 	
 	void insert(T toInsert);
+	void remove(T toRemove);
+	bstNode<T>* search(T value);
 	void clear();
 
 	void displayInOrder();
@@ -83,6 +93,63 @@ bstNode<T>* bst<T>::insert(bstNode<T>* node, T toInsert) {
 }
 
 template <typename T>
+void bst<T>::remove(T toRemove) {
+	remove(root, toRemove);
+}
+
+template <typename T>
+bstNode<T>* bst<T>::remove(bstNode<T>* node, T toRemove) {
+	bstNode<T>* temp;
+	if (node == nullptr)
+		return nullptr;
+
+	else if (toRemove < node->data)
+		node->left = remove(node->left, toRemove);
+
+	else if (toRemove > node->data)
+		node->right = remove(node->right, toRemove);
+	
+	//node has two children
+	else if (node->left && node->right) {
+		temp = min(node->right); //get min of right subtree
+		//alternatively, temp = max(node->left);
+		node->data = temp->data;
+		node->right = remove(node->right, node->data);
+	}
+
+	else {
+		temp = node;
+		if (node->left == nullptr)
+			node = node->right;
+		else if (node->right == nullptr)
+			node = node->left;
+		delete temp;
+	}
+	numNodes--;
+	return node;
+}
+/*
+Search for a value in the BST.
+Returns it's node's memory address.
+*/
+template <typename T>
+bstNode<T>* bst<T>::search(T value) {
+	return search(root, value);
+}
+
+template <typename T>
+bstNode<T>* bst<T>::search(bstNode<T>* node, T value) { 
+	if (node == nullptr || node->data == value)
+		return node;
+ 
+	if (node->data < value)
+		return search(node->right, value);
+
+	else
+		return search(node->left, value);
+}
+
+template <typename T>
 void bst<T>::clear() {
 	clear(root);
 	root = nullptr;
@@ -99,6 +166,30 @@ bstNode<T>* bst<T>::clear(bstNode<T>* node) {
 		delete node;
 	}
 	return nullptr;
+}
+
+template <typename T>
+bstNode<T>* bst<T>::min(bstNode<T>* node) {
+	if (node == nullptr)
+		return nullptr;
+
+	else if (node->left == nullptr)
+		return node;
+
+	else
+		return min(node->left);
+}
+
+template <typename T>
+bstNode<T>* bst<T>::max(bstNode<T>* node) {
+	if (node == nullptr)
+		return nullptr;
+
+	else if (node->right == nullptr)
+		return node;
+
+	else
+		return max(node->right);
 }
 
 template <typename T>

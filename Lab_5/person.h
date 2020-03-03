@@ -7,6 +7,12 @@
 #include <iostream>
 #include <iomanip>
 
+/*
+Person class.
+A person has a name and bday, and pkey
+points to either name or bday, based on
+how the person is constructed.
+*/
 class Person {
 private:
 	std::string name = "";

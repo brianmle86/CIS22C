@@ -22,7 +22,8 @@ int main() {
     t.displayPreOrder();
     cout << "postorder" << endl;
     t.displayPostOrder();
-    t.clear();
+    cout << endl;
+    t.remove(5);
     t.displayInOrder();
     return 0;
 }
