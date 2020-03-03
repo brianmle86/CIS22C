@@ -16,14 +16,13 @@ int main() {
     t.insert(4);
     t.insert(6);
     t.insert(9);
-    t.display();
-    cout << endl << endl;
-    cout << t.root->data << endl;
-    cout << t.root->left->data << endl;
-    cout << t.root->left->left->data << endl;
-    cout << t.root->left->right->data << endl;
-    cout << t.root->right->data << endl;
-    cout << t.root->right->left->data << endl;
-    cout << t.root->right->right->data << endl;
+    cout << "inorder" << endl;
+    t.displayInOrder();
+    cout << "preorder" << endl;
+    t.displayPreOrder();
+    cout << "postorder" << endl;
+    t.displayPostOrder();
+    t.clear();
+    t.displayInOrder();
     return 0;
 }

@@ -6,23 +6,40 @@
 
 template <typename T>
 class bst {
-public:
-	bstNode<T>* root = nullptr;
-	int n = 0;
+private:
+	bstNode<T>* root;
+	int numNodes;
+
+	bstNode<T>* insert(bstNode<T>* node, T toInsert);
+	bstNode<T>* clear(bstNode<T>* node);
+	void inOrder(bstNode<T>* node);
+	void preOrder(bstNode<T>* node);
+	void postOrder(bstNode<T>* node);
 
 public:
-	bst() {};
-	~bst() {};
+	bst();
+	~bst();
 	
 	void insert(T toInsert);
-	bstNode<T>* insert(bstNode<T>* node, T toInsert);
-	void display();
-	void inorder(bstNode<T>* node);
-	void preorder(bstNode<T>* node);
-	void postorder(bstNode<T>* node);
+	void clear();
+
+	void displayInOrder();
+	void displayPreOrder();
+	void displayPostOrder();
+	
 
 	
 };
+template <typename T>
+bst<T>::bst() {
+	root = nullptr;
+	numNodes = 0;
+}
+
+template <typename T>
+bst<T>::~bst() {
+	clear();
+}
 
 template <typename T>
 void bst<T>::insert(T toInsert) {
@@ -31,60 +48,110 @@ void bst<T>::insert(T toInsert) {
 
 template <typename T>
 bstNode<T>* bst<T>::insert(bstNode<T>* node, T toInsert) {
-	if (node == nullptr) {
+	if (node == nullptr) { //base case
 		root = new bstNode<T>(toInsert);
+		numNodes++;
 		return root;
 	}
-	bstNode<T>* temp = root;
-	bstNode<T>* parent = nullptr;
-	while (temp != nullptr) {
-		parent = temp;
-		if (toInsert <= temp->data) {
-			temp = temp->left;
+
+	bstNode<T>* newNode = new bstNode<T>(toInsert);
+	bstNode<T>* current = root; //start at root
+	bstNode<T>* parent = nullptr; //points to parent node of current
+	
+
+	while (current != nullptr) {
+		parent = current; //store current node as parent
+		//go left or right based on comparison
+		if (toInsert <= current->data) {
+			current = current->left;
 		}
 		else {
-			temp = temp->right;
+			current = current->right;
 		}
 	}
-	bstNode<T>* temp2 = new bstNode<T>(toInsert);
+	//current is now nullptr
+	
+	//because we have kept track of parent, compare once more to insert node in correct position
 	if (toInsert <= parent->data) {
-		parent->left = temp2;
+		parent->left = newNode;
 	}
 	else {
-		parent->right = temp2;
+		parent->right = newNode;
 	}
+	numNodes++;
 	return root;
-
 }
 
 template <typename T>
-void bst<T>::display() {
-	inorder(root);
+void bst<T>::clear() {
+	clear(root);
+	root = nullptr;
+	numNodes = 0;
 }
+
 template <typename T>
-void bst<T>::inorder(bstNode<T>* node) {
+bstNode<T>* bst<T>::clear(bstNode<T>* node) {
+	if (node == nullptr)
+		return nullptr;
+	else {
+		clear(node->left);
+		clear(node->right);
+		delete node;
+	}
+	return nullptr;
+}
+
+template <typename T>
+void bst<T>::displayInOrder() {
+	if (root == nullptr) {
+		std::cout << "empty\n";
+		return;
+	}
+	inOrder(root);
+}
+
+template <typename T>
+void bst<T>::displayPreOrder() {
+	if (root == nullptr) {
+		std::cout << "empty\n";
+		return;
+	}
+	preOrder(root);
+}
+
+template <typename T>
+void bst<T>::displayPostOrder() {
+	if (root == nullptr) {
+		std::cout << "empty\n";
+		return;
+	}
+	postOrder(root);
+}
+
+template <typename T>
+void bst<T>::inOrder(bstNode<T>* node) {
 	if (node == nullptr)
 		return;
-	inorder(node->getLeft());
+	inOrder(node->getLeft());
 	std::cout << node->getData() << std::endl;
-	inorder(node->getRight());
+	inOrder(node->getRight());
 }
 
 template <typename T>
-void bst<T>::preorder(bstNode<T>* node) {
+void bst<T>::preOrder(bstNode<T>* node) {
 	if (node == nullptr)
 		return;
 	std::cout << node->getData() << std::endl;
-	preorder(node->left);
-	preorder(node->right);
+	preOrder(node->left);
+	preOrder(node->right);
 }
 
 template <typename T>
-void bst<T>::postorder(bstNode<T>* node) {
+void bst<T>::postOrder(bstNode<T>* node) {
 	if (node == nullptr)
 		return;
-	postorder(node->left);
-	postorder(node->right);
+	postOrder(node->left);
+	postOrder(node->right);
 	std::cout << node->getData() << std::endl;
 }
 
