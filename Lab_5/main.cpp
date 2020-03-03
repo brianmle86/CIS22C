@@ -8,22 +8,18 @@
 using namespace std;
 
 int main() {
-	bst<int> t;
-    t.insert(5); //root
-    t.insert(3);
-    t.insert(8);
-    t.insert(1);
-    t.insert(4);
-    t.insert(6);
-    t.insert(9);
-    cout << "inorder" << endl;
-    t.displayInOrder();
-    cout << "preorder" << endl;
-    t.displayPreOrder();
-    cout << "postorder" << endl;
-    t.displayPostOrder();
-    cout << endl;
-    t.remove(5);
-    t.displayInOrder();
-    return 0;
+	fstream dataFile;
+	string fileName, name, bday;
+	bst<Person>* nameTree;
+	bst<Person>* bdayTree;
+
+	cout << "Please enter the name of the file with its path: ";
+	cin >> fileName;
+	dataFile.open(fileName);
+	if (!dataFile) {
+		cout << "Error! Could not open file. ";
+		return 1;
+	}
+
+	return 0;
 }

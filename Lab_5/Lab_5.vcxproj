@@ -141,9 +141,11 @@
   <ItemGroup>
     <ClInclude Include="bst.h" />
     <ClInclude Include="bstNode.h" />
+    <ClInclude Include="fileIO.h" />
     <ClInclude Include="person.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="fileIO.cpp" />
     <ClCompile Include="person.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>

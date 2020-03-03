@@ -20,9 +20,11 @@ private:
 	bstNode<T>* clear(bstNode<T>* node);
 	bstNode<T>* min(bstNode<T>* node);
 	bstNode<T>* max(bstNode<T>* node);
+	int height(bstNode<T>* node);
 	void inOrder(bstNode<T>* node);
 	void preOrder(bstNode<T>* node);
 	void postOrder(bstNode<T>* node);
+	void breathFirst(bstNode<T>* node);
 
 public:
 	bst();
@@ -36,6 +38,7 @@ public:
 	void displayInOrder();
 	void displayPreOrder();
 	void displayPostOrder();
+	void displayBreathFirst();
 	
 
 	
@@ -193,6 +196,24 @@ bstNode<T>* bst<T>::max(bstNode<T>* node) {
 }
 
 template <typename T>
+int bst<T>::height(bstNode<T>* node) {
+	if (node == nullptr)
+		return 0;
+
+	else {
+		//left and right subtrees
+		int leftHeight = height(node->left);
+		int rightHeight = height(node->right);
+
+		if (leftHeight > rightHeight)
+			return(leftHeight + 1);
+
+		else //leftHeight <= rightHeight
+			return(rightHeight + 1);
+	}
+}
+
+template <typename T>
 void bst<T>::displayInOrder() {
 	if (root == nullptr) {
 		std::cout << "empty\n";
@@ -217,6 +238,11 @@ void bst<T>::displayPostOrder() {
 		return;
 	}
 	postOrder(root);
+}
+
+template <typename T>
+void bst<T>::displayBreathFirst() {
+	//display breath first traversal
 }
 
 template <typename T>
@@ -246,5 +272,8 @@ void bst<T>::postOrder(bstNode<T>* node) {
 	std::cout << node->getData() << std::endl;
 }
 
-
+template <typename T>
+void bst<T>::breathFirst(bstNode<T>* node) {
+	//do something
+}
 #endif
