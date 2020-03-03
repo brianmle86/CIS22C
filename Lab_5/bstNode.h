@@ -6,10 +6,10 @@
 
 template <typename T>
 class bstNode {
-private:
+public:
 	T data;
-	T* left;
-	T* right;
+	bstNode<T>* left;
+	bstNode<T>* right;
 
 public:
 	bstNode();
@@ -20,8 +20,8 @@ public:
 	void setRight(T r);
 
 	T getData();
-	T* getLeft();
-	T* getRight();
+	bstNode<T>* getLeft();
+	bstNode<T>* getRight();
 	
 	void displayData();
 
@@ -62,12 +62,12 @@ T bstNode<T>::getData() {
 }
 
 template <typename T>
-T* bstNode<T>::getLeft() {
+bstNode<T>* bstNode<T>::getLeft() {
 	return left;
 }
 
 template <typename T>
-T* bstNode<T>::getRight() {
+bstNode<T>* bstNode<T>::getRight() {
 	return right;
 }
 

@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -10,17 +9,21 @@ using namespace std;
 
 int main() {
 	bst<int> t;
-    t.insert(20);
-    t.insert(25);
-    t.insert(15);
-    t.insert(10);
-    t.insert(30);
+    t.insert(5); //root
+    t.insert(3);
+    t.insert(8);
+    t.insert(1);
+    t.insert(4);
+    t.insert(6);
+    t.insert(9);
     t.display();
-    t.remove(20);
-    t.display();
-    t.remove(25);
-    t.display();
-    t.remove(30);
-    t.display();
+    cout << endl << endl;
+    cout << t.root->data << endl;
+    cout << t.root->left->data << endl;
+    cout << t.root->left->left->data << endl;
+    cout << t.root->left->right->data << endl;
+    cout << t.root->right->data << endl;
+    cout << t.root->right->left->data << endl;
+    cout << t.root->right->right->data << endl;
     return 0;
 }

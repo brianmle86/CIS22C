@@ -6,14 +6,17 @@
 
 template <typename T>
 class bst {
-private:
-	
+public:
+	bstNode<T>* root = nullptr;
+	int n = 0;
 
 public:
-	bst();
-	~bst();
+	bst() {};
+	~bst() {};
 	
-	bstNode<T>* insert(bstNode<T>* node, T data);
+	void insert(T toInsert);
+	bstNode<T>* insert(bstNode<T>* node, T toInsert);
+	void display();
 	void inorder(bstNode<T>* node);
 	void preorder(bstNode<T>* node);
 	void postorder(bstNode<T>* node);
@@ -22,31 +25,56 @@ public:
 };
 
 template <typename T>
-bstNode<T>* bst<T>::insert(bstNode<T>* root, T toInsert) {
-	if (root == nullptr)
-		return new bstNode<T>(toInsert);
-
-	if (toInsert < root->data)
-		root->left = insert(root->left, toInsert);
-
-	else if (toInsert > root->data)
-		root->right = insert(root->right, toInsert);
-
-	return root;
+void bst<T>::insert(T toInsert) {
+	insert(root, toInsert);
 }
 
+template <typename T>
+bstNode<T>* bst<T>::insert(bstNode<T>* node, T toInsert) {
+	if (node == nullptr) {
+		root = new bstNode<T>(toInsert);
+		return root;
+	}
+	bstNode<T>* temp = root;
+	bstNode<T>* parent = nullptr;
+	while (temp != nullptr) {
+		parent = temp;
+		if (toInsert <= temp->data) {
+			temp = temp->left;
+		}
+		else {
+			temp = temp->right;
+		}
+	}
+	bstNode<T>* temp2 = new bstNode<T>(toInsert);
+	if (toInsert <= parent->data) {
+		parent->left = temp2;
+	}
+	else {
+		parent->right = temp2;
+	}
+	return root;
+
+}
+
+template <typename T>
+void bst<T>::display() {
+	inorder(root);
+}
 template <typename T>
 void bst<T>::inorder(bstNode<T>* node) {
 	if (node == nullptr)
 		return;
-	inorder(node->left);
-	inorder(node->right);
+	inorder(node->getLeft());
+	std::cout << node->getData() << std::endl;
+	inorder(node->getRight());
 }
 
 template <typename T>
 void bst<T>::preorder(bstNode<T>* node) {
 	if (node == nullptr)
 		return;
+	std::cout << node->getData() << std::endl;
 	preorder(node->left);
 	preorder(node->right);
 }
@@ -57,6 +85,7 @@ void bst<T>::postorder(bstNode<T>* node) {
 		return;
 	postorder(node->left);
 	postorder(node->right);
+	std::cout << node->getData() << std::endl;
 }
 
 
