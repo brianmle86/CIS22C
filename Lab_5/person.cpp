@@ -1,5 +1,7 @@
 #include "person.h"
 
+Person::Person() {}
+
 Person::Person(int key, std::string x) {
 	if (key == 0) {
 		name = x;
@@ -36,7 +38,6 @@ void Person::displayPerson() {
 	std::cout << std::left << std::setw(60) << name << std::right << std::setw(20) << bday;
 }
 
-
 std::ostream& operator<<(std::ostream& output, Person& obj) {
 	output << std::left << std::setw(60) << obj.getName() << std::right << std::setw(20) << obj.getBday();
 	return output;
@@ -61,4 +62,8 @@ bool operator> (Person& obj1, Person& obj2) {
 
 bool operator== (Person& obj1, Person& obj2) {
 	return *(obj1.pkey) == *(obj2.pkey);
+}
+
+bool operator<= (Person& obj1, Person& obj2) {
+	return *(obj1.pkey) <= *(obj2.pkey);
 }

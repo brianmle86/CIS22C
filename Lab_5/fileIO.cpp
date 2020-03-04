@@ -26,4 +26,16 @@ bool fileIO::valid(std::fstream& dataFile) {
 	//bdays appear yyyy-mm-dd, so check if line[4] and line[7] are '-' && mm <= 12 && dd <= 31
 
 	//return bool
+	return 0;
+}
+
+int fileIO::getNumLines(std::fstream& file) {
+	int count = 0;
+	std::string line;
+
+	while (std::getline(file, line)) {
+		count++;
+	}
+	std::cin.clear();
+	return count;
 }

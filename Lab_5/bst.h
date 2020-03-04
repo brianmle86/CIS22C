@@ -250,7 +250,7 @@ void bst<T>::inOrder(bstNode<T>* node) {
 	if (node == nullptr)
 		return;
 	inOrder(node->getLeft());
-	std::cout << node->getData() << std::endl;
+	std::cout << node->data << std::endl;
 	inOrder(node->getRight());
 }
 

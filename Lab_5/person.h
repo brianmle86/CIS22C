@@ -13,13 +13,15 @@ A person has a name and bday, and pkey
 points to either name or bday, based on
 how the person is constructed.
 */
+
 class Person {
 private:
-	std::string name = "";
-	std::string bday = "";
+	std::string name;
+	std::string bday;
 	std::string* pkey = nullptr;
 
 public:
+	Person();
 	Person(int key, std::string x);
 	std::string getName();
 	std::string getBday();
@@ -33,6 +35,7 @@ public:
 	friend bool operator< (Person& obj1, Person& obj2);
 	friend bool operator> (Person& obj1, Person& obj2);
 	friend bool operator== (Person& obj1, Person& obj2);
+	friend bool operator<= (Person& obj1, Person& obj2);
 };
 
 #endif
