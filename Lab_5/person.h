@@ -27,6 +27,7 @@ public:
 	std::string getBday();
 	void setName(std::string n);
 	void setBday(std::string day);
+	void switchPkey();
 	void displayPerson(); //actually not needed, because we can directly output it with cout
 
 	//operator overloads

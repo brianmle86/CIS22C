@@ -14,7 +14,7 @@ public:
 	bstNode<T>* left;
 	bstNode<T>* right;
 
-public:
+
 	bstNode();
 	bstNode(T x);
 

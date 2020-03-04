@@ -3,7 +3,7 @@
 #include <fstream>
 #include "person.h"
 #include "bst.h"
-
+#include "fileIO.h"
 
 using namespace std;
 
@@ -15,24 +15,14 @@ int main() {
 
 	//cout << "Please enter the name of the file with its path: ";
 	//cin >> fileName;
+	fileName = "test.txt";
 	dataFile.open(fileName);
-	/*
+	
 	if (!dataFile) {
 		cout << "Error! Could not open file. ";
 		return 1;
 	}
-	*/
 
-	Person a(0, "brian");
-	a.setBday("2000-08-06");
-	
-	bst<Person> tree;
-	tree.insert(a);
-
-	tree.displayInOrder();
-
-	bst<int> b;
-	b.insert(1);
-	b.displayInOrder();
+	fileIO::readFile(dataFile, nameTree, bdayTree);
 	return 0;
 }

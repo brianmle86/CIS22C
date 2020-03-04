@@ -16,6 +16,7 @@ public:
 	static void readFile(std::fstream &dataFile, bst<Person>* &nameTree, bst<Person>* &bdayTree);
 	static bool valid(std::fstream& dataFile);
 	static int getNumLines(std::fstream& file);
+	static bool isNum(char c);
 };
 
 

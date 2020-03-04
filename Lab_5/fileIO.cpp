@@ -2,31 +2,68 @@
 
 //read the file and insert people into bst
 void fileIO::readFile(std::fstream &dataFile, bst<Person>*& nameTree, bst<Person>*& bdayTree) {
-	//check if file is valid
+	if (!(valid(dataFile)))
+		return;
+
+	int lineCount = getNumLines(dataFile);
+	std::string* nameArr = new std::string[lineCount];
+	std::string* bdayArr = new std::string[lineCount];
+
 	//read file while getline
 
 	//insert name and bday to respective trees (reference)
 	//use dynamic allocation
 	//Person has constructors for name and bday
+	dataFile.clear(); //clear the eof flag after using getline
+	dataFile.seekg(0, dataFile.beg); //return to beginning of file (this sets read pointer to beg)
+	std::string line;
+	int i = 0;
+	while (getline(dataFile, line)) {
+		if (isNum(line[0]))
+			bdayArr[i] = line;
+		else
+			nameArr[i] = line;
+		i++;
+	}
+	
+	int n = nameArr->length();
+	
+	for (int i = 0; i < n; i++) {
+		Person temp(0, nameArr[i]);
+		temp.setBday(bdayArr[i]);
 
-	//must have following lines after each use of getline:
-	//dataFile.clear(); //clear the eof flag after using getline
-	//dataFile.seekg(0, ios::beg); //return to beginning of file (this sets read pointer to beg)
+		nameTree->insert(temp);
+		temp.switchPkey();
+		bdayTree->insert(temp);
+	}
+	
+	dataFile.clear(); //clear the eof flag after using getline
+	dataFile.seekg(0, dataFile.beg); //return to beginning of file (this sets read pointer to beg)
 }
 
 //validate each pair of lines, return bool
 bool fileIO::valid(std::fstream& dataFile) {
-	//read file while getline
-	//for each line, parse by char (strings can be indexed)
+	bool isValid = true;
+	std::string line;
 
-	//names are followed by bdays, so can't have "Brian" followed by "Ryan"
+	int lineCount = getNumLines(dataFile);
 
-	//we assume a name is valid if there are no numbers
+	if (lineCount % 2 != 0)
+		return false;
 
-	//bdays appear yyyy-mm-dd, so check if line[4] and line[7] are '-' && mm <= 12 && dd <= 31
-
-	//return bool
-	return 0;
+	while (std::getline(dataFile, line)) {
+		if (isNum(line[0])) { //if line is birthday
+			if (!(line[4] == '-' && line[7] == '-'))
+				isValid = false;
+		}
+		else {
+			if (line.length() == 0) //a name needs at least one char
+				isValid = false;
+		}
+	}
+	dataFile.clear(); //clear the eof flag after using getline
+	dataFile.seekg(0, dataFile.beg); //return to beginning of file (this sets read pointer to beg)
+	return isValid;
 }
 
 int fileIO::getNumLines(std::fstream& file) {
@@ -36,6 +73,13 @@ int fileIO::getNumLines(std::fstream& file) {
 	while (std::getline(file, line)) {
 		count++;
 	}
-	std::cin.clear();
+	
 	return count;
+}
+
+bool fileIO::isNum(char c) {
+	if (c >= '0' && c <= '9')
+		return true;
+	else
+		return false;
 }

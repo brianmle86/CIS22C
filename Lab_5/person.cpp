@@ -29,6 +29,10 @@ void Person::setBday(std::string day) {
 	bday = day;
 }
 
+void Person::switchPkey() {
+	pkey = &bday;
+}
+
 /*
 From canvas:
  For the print method, output the object on a single 80-char line formatted to print
