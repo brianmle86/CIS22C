@@ -26,6 +26,10 @@ private:
 	void postOrder(bstNode<T>* node);
 	void breathFirst(bstNode<T>* node);
 
+	void wInOrder(bstNode<T>* node, std::ofstream& file);
+	void wPostOrder(bstNode<T>* node, std::ofstream& file);
+	void wPreOrder(bstNode<T>* node, std::ofstream& file);
+
 public:
 	bst();
 	~bst();
@@ -40,7 +44,9 @@ public:
 	void displayPostOrder();
 	void displayBreathFirst();
 	
-
+	void writeInOrder(std::ofstream& file);
+	void writePostOrder(std::ofstream& file);
+	void writePreOrder(std::ofstream& file);
 	
 };
 template <typename T>
@@ -106,7 +112,7 @@ bstNode<T>* bst<T>::remove(bstNode<T>* node, T toRemove) {
 	if (node == nullptr)
 		return nullptr;
 
-	else if (toRemove < node->data)
+	else if (toRemove <= node->data)
 		node->left = remove(node->left, toRemove);
 
 	else if (toRemove > node->data)
@@ -249,16 +255,16 @@ template <typename T>
 void bst<T>::inOrder(bstNode<T>* node) {
 	if (node == nullptr)
 		return;
-	inOrder(node->getLeft());
+	inOrder(node->left);
 	std::cout << node->data << std::endl;
-	inOrder(node->getRight());
+	inOrder(node->right);
 }
 
 template <typename T>
 void bst<T>::preOrder(bstNode<T>* node) {
 	if (node == nullptr)
 		return;
-	std::cout << node->getData() << std::endl;
+	std::cout << node->data << std::endl;
 	preOrder(node->left);
 	preOrder(node->right);
 }
@@ -269,11 +275,54 @@ void bst<T>::postOrder(bstNode<T>* node) {
 		return;
 	postOrder(node->left);
 	postOrder(node->right);
-	std::cout << node->getData() << std::endl;
+	std::cout << node->data << std::endl;
 }
 
 template <typename T>
 void bst<T>::breathFirst(bstNode<T>* node) {
 	//do something
 }
+
+template <typename T>
+void bst<T>::writeInOrder(std::ofstream& file) {
+	wInOrder(root, file);
+}
+
+template <typename T>
+void bst<T>::writePostOrder(std::ofstream& file) {
+	wPostOrder(root, file);
+}
+
+template <typename T>
+void bst<T>::writePreOrder(std::ofstream& file) {
+	wPreOrder(root, file);
+}
+
+template <typename T>
+void bst<T>::wInOrder(bstNode<T>* node, std::ofstream& file) {
+	if (node == nullptr)
+		return;
+	wInOrder(node->left, file);
+	file << node->data << std::endl;
+	wInOrder(node->right, file);
+}
+
+template <typename T>
+void bst<T>::wPostOrder(bstNode<T>* node, std::ofstream& file) {
+	if (node == nullptr)
+		return;
+	wPostOrder(node->left, file);
+	wPostOrder(node->right, file);
+	file << node->data << std::endl;
+}
+
+template <typename T>
+void bst<T>::wPreOrder(bstNode<T>* node, std::ofstream& file) {
+	if (node == nullptr)
+		return;
+	file << node->data << std::endl;
+	wPreOrder(node->left, file);
+	wPreOrder(node->right, file);
+}
+
 #endif

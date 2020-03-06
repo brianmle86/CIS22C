@@ -2,15 +2,9 @@
 
 Person::Person() {}
 
-Person::Person(int key, std::string x) {
-	if (key == 0) {
-		name = x;
-		pkey = &name;
-	}
-	else if (key == 1) {
-		bday = x;
-		pkey = &bday;
-	}
+Person::Person(std::string n, std::string day) {
+	name = n;
+	bday = day;
 }
 
 std::string Person::getName() {
@@ -29,8 +23,12 @@ void Person::setBday(std::string day) {
 	bday = day;
 }
 
-void Person::switchPkey() {
-	pkey = &bday;
+void Person::setPkey(int key) {
+	if (key == 0)
+		pkey = &name;
+
+	else if (key == 1)
+		pkey = &bday;
 }
 
 /*
@@ -69,5 +67,9 @@ bool operator== (Person& obj1, Person& obj2) {
 }
 
 bool operator<= (Person& obj1, Person& obj2) {
+	return *(obj1.pkey) <= *(obj2.pkey);
+}
+
+bool operator>= (Person& obj1, Person& obj2) {
 	return *(obj1.pkey) <= *(obj2.pkey);
 }

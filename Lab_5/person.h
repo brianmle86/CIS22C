@@ -22,12 +22,12 @@ private:
 
 public:
 	Person();
-	Person(int key, std::string x);
+	Person(std::string n, std::string day);
 	std::string getName();
 	std::string getBday();
 	void setName(std::string n);
 	void setBday(std::string day);
-	void switchPkey();
+	void setPkey(int key);
 	void displayPerson(); //actually not needed, because we can directly output it with cout
 
 	//operator overloads
@@ -37,6 +37,7 @@ public:
 	friend bool operator> (Person& obj1, Person& obj2);
 	friend bool operator== (Person& obj1, Person& obj2);
 	friend bool operator<= (Person& obj1, Person& obj2);
+	friend bool operator>= (Person& obj1, Person& obj2);
 };
 
 #endif

@@ -1,79 +1,85 @@
 #include "fileIO.h"
 
 //read the file and insert people into bst
-void fileIO::readFile(std::fstream &dataFile, bst<Person>*& nameTree, bst<Person>*& bdayTree) {
-	if (!(valid(dataFile)))
-		return;
+void fileIO::readFile(std::ifstream &dataFile, bst<Person>& nameTree, bst<Person>& bdayTree) {
+	std::string nameLine, bdayLine;
+	while (!dataFile.eof()) {
+		//read 2 lines at a time
+		std::getline(dataFile, nameLine);
+		std::getline(dataFile, bdayLine);
 
-	int lineCount = getNumLines(dataFile);
-	std::string* nameArr = new std::string[lineCount];
-	std::string* bdayArr = new std::string[lineCount];
+		//if not valid, replace invalid with line to notify user
+		if (!(valid(nameLine, bdayLine))) {
+			nameLine = "NOT VALID";
+			bdayLine = "";
+		}
 
-	//read file while getline
+		Person temp(nameLine, bdayLine);
+		
+		//change pkey based on which tree it is being inserted
+		temp.setPkey(0);
+		nameTree.insert(temp);
 
-	//insert name and bday to respective trees (reference)
-	//use dynamic allocation
-	//Person has constructors for name and bday
-	dataFile.clear(); //clear the eof flag after using getline
-	dataFile.seekg(0, dataFile.beg); //return to beginning of file (this sets read pointer to beg)
-	std::string line;
-	int i = 0;
-	while (getline(dataFile, line)) {
-		if (isNum(line[0]))
-			bdayArr[i] = line;
-		else
-			nameArr[i] = line;
-		i++;
+		temp.setPkey(1);
+		bdayTree.insert(temp);
+		
 	}
-	
-	int n = nameArr->length();
-	
-	for (int i = 0; i < n; i++) {
-		Person temp(0, nameArr[i]);
-		temp.setBday(bdayArr[i]);
-
-		nameTree->insert(temp);
-		temp.switchPkey();
-		bdayTree->insert(temp);
-	}
-	
 	dataFile.clear(); //clear the eof flag after using getline
 	dataFile.seekg(0, dataFile.beg); //return to beginning of file (this sets read pointer to beg)
 }
 
-//validate each pair of lines, return bool
-bool fileIO::valid(std::fstream& dataFile) {
+void fileIO::writeFiles(std::ofstream& nameFile, std::ofstream& bdayFile, bst<Person>& nameTree, bst<Person>& bdayTree) {
+	nameFile << "Inorder traversal: \n";
+	nameTree.writeInOrder(nameFile);
+
+	nameFile << "\nPreorder traversal: \n";
+	nameTree.writePreOrder(nameFile);
+
+	nameFile << "\nPostorder traversal: \n";
+	nameTree.writePostOrder(nameFile);
+
+	bdayFile << "Inorder traversal: \n";
+	bdayTree.writeInOrder(bdayFile);
+
+	bdayFile << "\nPreorder traversal: \n";
+	bdayTree.writePreOrder(bdayFile);
+
+	bdayFile << "\nPostorder traversal: \n";
+	bdayTree.writePostOrder(bdayFile);
+
+
+}
+//validate a given pair of lines, return bool
+bool fileIO::valid(std::string nameLine, std::string bdayLine) {
 	bool isValid = true;
-	std::string line;
+	if (nameLine.length() == 0)
+		isValid = false;
 
-	int lineCount = getNumLines(dataFile);
+	if (bdayLine.length() != 10)
+		isValid = false;
 
-	if (lineCount % 2 != 0)
-		return false;
+	if (bdayLine[4] != '-' || bdayLine[7] != '-')
+		isValid = false;
 
-	while (std::getline(dataFile, line)) {
-		if (isNum(line[0])) { //if line is birthday
-			if (!(line[4] == '-' && line[7] == '-'))
-				isValid = false;
-		}
-		else {
-			if (line.length() == 0) //a name needs at least one char
-				isValid = false;
-		}
+	for (int i = 0; i < bdayLine.length(); i++) {
+		if (i == 4 || i == 7)
+			continue;
+
+		if (!isNum(bdayLine[i]))
+			isValid = false;
 	}
-	dataFile.clear(); //clear the eof flag after using getline
-	dataFile.seekg(0, dataFile.beg); //return to beginning of file (this sets read pointer to beg)
 	return isValid;
 }
 
-int fileIO::getNumLines(std::fstream& file) {
+int fileIO::getNumLines(std::ifstream& dataFile) {
 	int count = 0;
 	std::string line;
 
-	while (std::getline(file, line)) {
+	while (std::getline(dataFile, line)) {
 		count++;
 	}
-	
+	dataFile.clear(); //clear the eof flag after using getline
+	dataFile.seekg(0, dataFile.beg); //return to beginning of file (this sets read pointer to beg)
 	return count;
 }
 
