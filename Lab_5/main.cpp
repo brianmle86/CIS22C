@@ -39,11 +39,85 @@ int main() {
 	cout << "\nPostorder traversal:\n";
 	nameTree.displayPostOrder();
 
+	int choice, choice2;
+	bool menu = true;
+	string n, day;
+	while (menu) {
+		cout << "Enter a choice:\n"
+			<< "1. insert to a tree\n"
+			<< "2. remove from a tree\n"
+			<< "3. search from tree\n"
+			<< "4. exit\n";
 
+		cin >> choice;
+		if (choice == 1) {
+			cout << "Insert to which tree?\n"
+				<< "1. name\n"
+				<< "2. bday\n";
+			cin >> choice2;
 
-	Person temp("Brian", "2000-08-06");
-	temp.setPkey(0);
+			if (choice2 == 1) {
+				cout << "Enter a name and birthday: ";
+				cin >> n >> day;
+				Person temp(n, day);
+				nameTree.insert(temp);
+				fileIO::writeFiles(nameFile, bdayFile, nameTree, bdayTree);
+			}
+			else if (choice2 == 2) {
+				cout << "Enter a name and birthday: ";
+				cin >> n >> day;
+				Person temp(n, day);
+				bdayTree.insert(temp);
+				fileIO::writeFiles(nameFile, bdayFile, nameTree, bdayTree);
+			}
+		}
+		else if (choice == 2) {
+			cout << "Remove from which tree?\n"
+				<< "1. name\n"
+				<< "2. bday\n";
+			cin >> choice2;
+
+			if (choice2 == 1) {
+				cout << "Enter a name and birthday: ";
+				cin >> n >> day;
+				Person temp(n, day);
+				nameTree.remove(temp);
+				fileIO::writeFiles(nameFile, bdayFile, nameTree, bdayTree);
+			}
+			else if (choice2 == 2) {
+				cout << "Enter a name and birthday: ";
+				cin >> n >> day;
+				Person temp(n, day);
+				bdayTree.remove(temp);
+				fileIO::writeFiles(nameFile, bdayFile, nameTree, bdayTree);
+			}
+		}
+		else if (choice == 3) {
+			cout << "Search in which tree?\n"
+				<< "1. name\n"
+				<< "2. bday\n";
+			cin >> choice2;
+
+			if (choice2 == 1) {
+				cout << "Enter a name and birthday: ";
+				cin >> n >> day;
+				Person temp(n, day);
+				bstNode<Person>* node = nameTree.search(temp);
+				cout << "Address is " << node << endl;
+			}
+			else if (choice2 == 2) {
+				cout << "Enter a name and birthday: ";
+				cin >> n >> day;
+				Person temp(n, day);
+				bstNode<Person>* node = bdayTree.search(temp);
+				cout << "Address is " << node << endl;
+			}
+		}
+		else if (choice == 4) {
+			menu = false;
+		}
+	}
+
 	
-	system("pause");
 	return 0;
 }

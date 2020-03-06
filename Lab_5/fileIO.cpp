@@ -28,6 +28,9 @@ void fileIO::readFile(std::ifstream &dataFile, bst<Person>& nameTree, bst<Person
 	dataFile.seekg(0, dataFile.beg); //return to beginning of file (this sets read pointer to beg)
 }
 
+/*
+Write to the file
+*/
 void fileIO::writeFiles(std::ofstream& nameFile, std::ofstream& bdayFile, bst<Person>& nameTree, bst<Person>& bdayTree) {
 	nameFile << "Inorder traversal: \n";
 	nameTree.writeInOrder(nameFile);

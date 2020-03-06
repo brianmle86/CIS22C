@@ -20,11 +20,11 @@ private:
 	bstNode<T>* clear(bstNode<T>* node);
 	bstNode<T>* min(bstNode<T>* node);
 	bstNode<T>* max(bstNode<T>* node);
-	int height(bstNode<T>* node);
+	
 	void inOrder(bstNode<T>* node);
 	void preOrder(bstNode<T>* node);
 	void postOrder(bstNode<T>* node);
-	void breathFirst(bstNode<T>* node);
+	
 
 	void wInOrder(bstNode<T>* node, std::ofstream& file);
 	void wPostOrder(bstNode<T>* node, std::ofstream& file);
@@ -42,7 +42,6 @@ public:
 	void displayInOrder();
 	void displayPreOrder();
 	void displayPostOrder();
-	void displayBreathFirst();
 	
 	void writeInOrder(std::ofstream& file);
 	void writePostOrder(std::ofstream& file);
@@ -65,6 +64,9 @@ void bst<T>::insert(T toInsert) {
 	insert(root, toInsert);
 }
 
+/*
+Insert a node to the tree
+*/
 template <typename T>
 bstNode<T>* bst<T>::insert(bstNode<T>* node, T toInsert) {
 	if (node == nullptr) { //base case
@@ -106,6 +108,9 @@ void bst<T>::remove(T toRemove) {
 	remove(root, toRemove);
 }
 
+/*
+Remove a node in the tree
+*/
 template <typename T>
 bstNode<T>* bst<T>::remove(bstNode<T>* node, T toRemove) {
 	bstNode<T>* temp;
@@ -138,7 +143,7 @@ bstNode<T>* bst<T>::remove(bstNode<T>* node, T toRemove) {
 	return node;
 }
 /*
-Search for a value in the BST.
+Search for a value in the BST. (recursively)
 Returns it's node's memory address.
 */
 template <typename T>
@@ -158,6 +163,9 @@ bstNode<T>* bst<T>::search(bstNode<T>* node, T value) {
 		return search(node->left, value);
 }
 
+/*
+Deletes all nodes in tree
+*/
 template <typename T>
 void bst<T>::clear() {
 	clear(root);
@@ -177,6 +185,9 @@ bstNode<T>* bst<T>::clear(bstNode<T>* node) {
 	return nullptr;
 }
 
+/*
+Returns node with minimum value in a subtree of a given node
+*/
 template <typename T>
 bstNode<T>* bst<T>::min(bstNode<T>* node) {
 	if (node == nullptr)
@@ -189,6 +200,9 @@ bstNode<T>* bst<T>::min(bstNode<T>* node) {
 		return min(node->left);
 }
 
+/*
+Returns node with maximum value in a subtree of a given node
+*/
 template <typename T>
 bstNode<T>* bst<T>::max(bstNode<T>* node) {
 	if (node == nullptr)
@@ -199,24 +213,6 @@ bstNode<T>* bst<T>::max(bstNode<T>* node) {
 
 	else
 		return max(node->right);
-}
-
-template <typename T>
-int bst<T>::height(bstNode<T>* node) {
-	if (node == nullptr)
-		return 0;
-
-	else {
-		//left and right subtrees
-		int leftHeight = height(node->left);
-		int rightHeight = height(node->right);
-
-		if (leftHeight > rightHeight)
-			return(leftHeight + 1);
-
-		else //leftHeight <= rightHeight
-			return(rightHeight + 1);
-	}
 }
 
 template <typename T>
@@ -247,11 +243,6 @@ void bst<T>::displayPostOrder() {
 }
 
 template <typename T>
-void bst<T>::displayBreathFirst() {
-	//display breath first traversal
-}
-
-template <typename T>
 void bst<T>::inOrder(bstNode<T>* node) {
 	if (node == nullptr)
 		return;
@@ -276,11 +267,6 @@ void bst<T>::postOrder(bstNode<T>* node) {
 	postOrder(node->left);
 	postOrder(node->right);
 	std::cout << node->data << std::endl;
-}
-
-template <typename T>
-void bst<T>::breathFirst(bstNode<T>* node) {
-	//do something
 }
 
 template <typename T>
