@@ -6,7 +6,11 @@
 #include "fileIO.h"
 
 using namespace std;
-
+/*
+Brian Le, Luke Marshall
+De Anza College
+CIS22C
+*/
 int main() {
 	ifstream dataFile;
 	ofstream nameFile, bdayFile;

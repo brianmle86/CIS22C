@@ -14,14 +14,16 @@ void fileIO::readFile(std::ifstream &dataFile, bst<Person>& nameTree, bst<Person
 			bdayLine = "";
 		}
 
-		Person temp(nameLine, bdayLine);
+		Person* temp = new Person;
+		temp->setName(nameLine);
+		temp->setBday(bdayLine);
 		
 		//change pkey based on which tree it is being inserted
-		temp.setPkey(0);
-		nameTree.insert(temp);
+		temp->setPkey(0);
+		nameTree.insert(*temp);
 
-		temp.setPkey(1);
-		bdayTree.insert(temp);
+		temp->setPkey(1);
+		bdayTree.insert(*temp);
 		
 	}
 	dataFile.clear(); //clear the eof flag after using getline
