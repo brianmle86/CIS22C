@@ -10,7 +10,15 @@ class hashNode {
 private:
 	K key;
 	V value;
-	hashNode<K, V>* next;
+public:
+	hashNode(K key, V value);
 };
 
+
 #endif
+
+template<typename K, typename V>
+hashNode<K, V>::hashNode(K k, V v) {
+	key = k;
+	value = v;
+}

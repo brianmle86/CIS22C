@@ -57,7 +57,7 @@ List<T>::~List() {
 //inserts a node based on value of sortStatus
 template <typename T>
 void List<T>::insertNode(T value) {
-	listNode<T>* toInsert = new Node<T>(value); //node to insert
+	listNode<T>* toInsert = new listNode<T>(value); //node to insert
 	listNode<T>* temp = nullptr;
 
 	if (sortStatus == 0) { //unsorted insert

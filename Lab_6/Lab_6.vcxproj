@@ -139,11 +139,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="hashNode.h" />
+    <ClInclude Include="hashTable.h" />
     <ClInclude Include="list.h" />
     <ClInclude Include="listNode.h" />
+    <ClInclude Include="person.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="person.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="data.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
