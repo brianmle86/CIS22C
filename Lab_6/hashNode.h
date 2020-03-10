@@ -7,10 +7,10 @@ Node template class for hash map. K = key, V = value
 */
 template <typename K, typename V>
 class hashNode {
-private:
+public:
 	K key;
 	V value;
-public:
+
 	hashNode(K key, V value);
 };
 

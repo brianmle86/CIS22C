@@ -13,9 +13,9 @@ CIS22C
 using namespace std;
 
 int main() {
-	cout << "lab 6 main\n";
-	hashTable<string, Person> table(10);
-	Person B("B", "2000-08-06");
-
+	hashTable<string, Person> table(100);
+	Person B("Brian", "2000-08-06");
+	table.insert(B);
+	cout << table.search("2000-08-06")->value.getName() << endl;
 	return 0;
 }

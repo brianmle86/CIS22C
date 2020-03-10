@@ -12,12 +12,16 @@ private:
 	hashNode<K, V>** table;
 	int numElements;
 	int maxElements;
+	int numCollisions;
 
 public:
 	hashTable(int size);
 	~hashTable();
 	int hash(std::string key);
+	double getLoadFactor();
+	int getNumCollisions();
 	void insert(Person toInsert); //insert method just for lab 6
+	hashNode<K, V>* search(std::string key);
 };
 
 #endif
@@ -26,6 +30,8 @@ template<typename K, typename V>
 hashTable<K, V>::hashTable(int size) {
 	maxElements = size;
 	numElements = 0;
+	numCollisions = 0;
+
 	table = new hashNode<K, V> * [size];
 	for (int i = 0; i < size; i++)
 		table[i] = nullptr;
@@ -36,6 +42,10 @@ hashTable<K, V>::~hashTable() {
 	delete[] table;
 }
 
+/*
+Adds digits of a given key repeatedly until
+the sum is a an integer n such that 0 <= n <= 9
+*/
 template<typename K, typename V>
 int hashTable<K, V>::hash(std::string key) {
 	int sum = 0;
@@ -51,6 +61,23 @@ int hashTable<K, V>::hash(std::string key) {
 	return sum;
 }
 
+/*
+Load Factor = # keys stored / total capacity
+*/
+template<typename K, typename V>
+double hashTable<K, V>::getLoadFactor() {
+	return static_cast<double>(numElements) / maxElements;
+}
+
+template<typename K, typename V>
+int hashTable<K, V>::getNumCollisions() {
+	return numCollisions;
+}
+
+/*
+Insert a Person object to the hash table.
+Uses quadratic probing for collision resolution.
+*/
 template<typename K, typename V>
 void hashTable<K, V>::insert(Person toInsert) {
 	std::string key = toInsert.getBday();
@@ -60,18 +87,27 @@ void hashTable<K, V>::insert(Person toInsert) {
 	if (table[index] == nullptr) {
 		table[index] = temp;
 		numElements++;
-		std::cout << toInsert << " " << index << std::endl;
 	}
 
 	else {
 		//use quadratic probing to find next available index
 		int i = 1;
 		while (table[index] != nullptr) {
+			numCollisions++;
 			index = ((hash(key) + (i * i)) % maxElements);
 			i++;
 		}
 		table[index] = temp;
 		numElements++;
-		std::cout << toInsert << " " << index << std::endl;
 	}
+}
+
+template<typename K, typename V>
+hashNode<K, V>* hashTable<K, V>::search(std::string key) {
+	int index = hash(key);
+	int i = 1;
+	while (table[index]->value.getBday() != key)
+		index = ((hash(key) + (i * i)) % maxElements);
+
+	return table[index];
 }
