@@ -1,8 +1,9 @@
 #include <iostream>
 #include <string>
-#include "list.h"
 #include "hashTable.h"
 #include "person.h"
+#include <fstream>
+#include "fileIO.h"
 
 /*
 Brian Le
@@ -13,9 +14,51 @@ CIS22C
 using namespace std;
 
 int main() {
-	hashTable<string, Person> table(100);
-	Person B("Brian", "2000-08-06");
-	table.insert(B);
-	cout << table.search("2000-08-06")->value.getName() << endl;
+	string fileName;
+	ifstream dataFile;
+
+	cout << "Enter path of file: ";
+	cin >> fileName;
+
+	
+	dataFile.open(fileName);
+	if (!dataFile) {
+		cout << "Error opening file. \n";
+		return 1;
+	}
+
+	int numItems = fileIO::getNumLines(dataFile)/2;
+	hashTable<string, Person> table(numItems);
+	
+	fileIO::readFile(dataFile, table);
+	dataFile.close();
+	
+	table.displayTable();
+
+
+	string day, result;
+	int choice;
+	bool check = true;
+	while (check) {
+		cout << "Enter a bday(yyyy-mm-dd) to search: ";
+		cin >> day;
+
+		if (table.search(day) == nullptr)
+			result = "Invalid Data.";
+		else
+			result = table.search(day)->value.getName();
+
+		cout << "Search result: " << result << endl;
+		cout << "\n1. Search again\n"
+			<< "2. Exit\n";
+		cin >> choice;
+
+		if (choice == 1)
+			continue;
+		else
+			check = false;
+	}
+
+	system("pause");
 	return 0;
 }

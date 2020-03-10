@@ -141,8 +141,6 @@
     <ClInclude Include="fileIO.h" />
     <ClInclude Include="hashNode.h" />
     <ClInclude Include="hashTable.h" />
-    <ClInclude Include="list.h" />
-    <ClInclude Include="listNode.h" />
     <ClInclude Include="person.h" />
   </ItemGroup>
   <ItemGroup>
