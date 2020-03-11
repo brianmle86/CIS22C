@@ -24,8 +24,9 @@ public:
 	int hash(std::string key);
 	double getLoadFactor();
 	int getNumCollisions();
-	void displayTable();
+	void display();
 	void insert(Person toInsert);
+	bool remove(std::string key);
 	hashNode<K, V>* search(std::string key);
 };
 
@@ -79,11 +80,15 @@ int hashTable<K, V>::getNumCollisions() {
 	return numCollisions;
 }
 
+/*
+Displays Name, Key(bday), and index
+for each entry in the hash table
+*/
 template<typename K, typename V>
-void hashTable<K, V>::displayTable() {
+void hashTable<K, V>::display() {
 	std::cout << "----------------------------------------------------\n";
 	std::cout << std::left << std::setw(25)
-		<< "Name" << std::setw(15) << "key(bday)"
+		<< "Name" << std::setw(15) << "Key(bday)"
 		<< std::setw(3) << "Index\n\n";
 	for (int i = 0; i < maxElements; i++) {
 		if (table[i] == nullptr) {
@@ -103,8 +108,7 @@ void hashTable<K, V>::displayTable() {
 
 	std::cout << "\n\n# Items loaded: " << numElements << std::endl
 		<< "Load factor: " << std::setprecision(2) << std::fixed
-		<< getLoadFactor() << std::endl
-		<< "# Collisions: " << getNumCollisions() << std::endl;
+		<< getLoadFactor() << std::endl;
 	std::cout << "----------------------------------------------------\n";
 }
 
@@ -119,6 +123,9 @@ void hashTable<K, V>::insert(Person toInsert) {
 	hashNode<K, V>* temp = new hashNode<K, V>(key, toInsert);
 
 	int index = hash(key);
+	//save the first hash we get to avoid expensive calls to the hash function
+	int firstHash = index;
+
 	if (table[index] == nullptr) {
 		table[index] = temp;
 		numElements++;
@@ -130,12 +137,12 @@ void hashTable<K, V>::insert(Person toInsert) {
 		int i = 1;
 		while (table[index] != nullptr) {
 			numCollisions++;
-			index = ((hash(key) + (i * i)) % maxElements);
+			index = ((firstHash + (i * i)) % maxElements);
 			i++;
 
 			//if the index from quadratic probing
 			//is what we started with, it is a cyclic hash
-			if (index == hash(key)) {
+			if (index == firstHash) {
 				cycle = true;
 				break;
 			}
@@ -144,15 +151,61 @@ void hashTable<K, V>::insert(Person toInsert) {
 		if (cycle) {
 			//use linear probing
 			i = 1;
-			index = hash(key) + 1; //skip the first index, since we know there was a collision
+			index = firstHash + 1; //skip the first index, since we know there was a collision
 			while (table[index] != nullptr) {
 				numCollisions++;
-				index = (hash(key) + i) % maxElements;
+				index = (firstHash + i) % maxElements;
 				i++;
 			}
 		}
 		table[index] = temp;
 		numElements++;
+	}
+}
+
+/*
+Removes an entry from the hash table given a key.
+Returns true if successful, and false otherwise.
+*/
+template<typename K, typename V>
+bool hashTable<K, V>::remove(std::string key) {
+	int index = hash(key);
+	//save the first hash we get to avoid expensive calls to the hash function
+	int firstHash = index;
+
+	bool cycle = false;
+	int i = 1;
+	while (table[index] == nullptr || table[index]->value.getBday() != key) {
+		index = ((firstHash + (i * i)) % maxElements);
+		i++;
+
+		//if the index from quadratic probing
+			//is what we started with, it is a cyclic hash
+		if (index == firstHash) {
+			cycle = true;
+			break;
+		}
+	}
+
+	if (cycle) {
+		//use linear probing
+		i = 1;
+		index = firstHash + 1; //skip the first index, already searched
+		while (table[index] == nullptr || table[index]->value.getBday() != key) {
+			index = (firstHash + i) % maxElements;
+			i++;
+			if (i == numElements)
+				return false; //could not find anything from key. Invalid data.
+		}
+	}
+
+	if (table[index] == nullptr)
+		return false; //nothing at index to remove
+	else {
+		delete table[index];
+		table[index] = nullptr;
+		numElements--;
+		return true; //remove successful
 	}
 }
 
@@ -165,15 +218,18 @@ Returns a null pointer if search was unsuccesful.
 template<typename K, typename V>
 hashNode<K, V>* hashTable<K, V>::search(std::string key) {
 	int index = hash(key);
+	//save the first hash we get to avoid expensive calls to the hash function
+	int firstHash = index;
+
 	bool cycle = false;
 	int i = 1;
-	while (table[index]->value.getBday() != key) {
-		index = ((hash(key) + (i * i)) % maxElements);
+	while (table[index] == nullptr || table[index]->value.getBday() != key) {
+		index = ((firstHash + (i * i)) % maxElements);
 		i++;
 
 		//if the index from quadratic probing
 			//is what we started with, it is a cyclic hash
-		if (index == hash(key)) {
+		if (index == firstHash) {
 			cycle = true;
 			break;
 		}
@@ -182,9 +238,9 @@ hashNode<K, V>* hashTable<K, V>::search(std::string key) {
 	if (cycle) {
 		//use linear probing
 		i = 1;
-		index = hash(key) + 1; //skip the first index, already searched
-		while (table[index]->value.getBday() != key) {
-			index = (hash(key) + i) % maxElements;
+		index = firstHash + 1; //skip the first index, already searched
+		while (table[index] == nullptr || table[index]->value.getBday() != key) {
+			index = (firstHash + i) % maxElements;
 			i++;
 			if (i == numElements)
 				return nullptr;
